@@ -1,6 +1,6 @@
 exports.signup_post = (req, res, next) => {
     try {
-        res.json({message: "signup"})
+        res.json({message: "Signup successful", user: req.user})
     } catch (error) {
         console.log(error);
         next(error);
