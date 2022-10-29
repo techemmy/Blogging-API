@@ -1,23 +1,10 @@
 const express = require('express');
+const authController = require("../controllers/authController")
 
 const router = express.Router();
 
-router.post("/signup", (req, res, next) => {
-    try {
-        res.json({message: "signup"})
-    } catch (error) {
-        console.log(error);
-        next(error);
-    }
-})
+router.post("/signup", authController.signup_post)
 
-router.post("/login", (req, res, next) => {
-    try {
-        res.json({message: "login"})
-    } catch (error) {
-        console.log(error);
-        next(error);
-    }
-})
+router.post("/login", authController.login_post)
 
 module.exports = router;
