@@ -9,7 +9,7 @@ app.disable('x-powered-by')
 
 app.use(morgan('dev'))
 app.use(helmet())
-app.use(bodyParser.json())
+app.use(bodyParser.urlencoded({extended: true}))
 require("./middleware")
 
 app.get("/", (req, res) => {
@@ -29,7 +29,7 @@ app.use((req, res, next) => {
 // error Handler middleware
 app.use((error, req, res, next) => {
     try {
-        res.status(error.status || 500).json({error})
+        res.status(error.status || 500).json({error: error.message})
     } catch (error) {
         console.log(error);
     }
