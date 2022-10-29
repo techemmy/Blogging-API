@@ -7,9 +7,10 @@ exports.signup_post = (req, res, next) => {
     }
 }
 
-exports.login_post = (req, res, next) => {
+exports.login_post = (req, res, next, user, info) => {
     try {
-        res.json({message: "login"})
+        console.log(user, info);
+        res.json({message: "Logged In Successfully"})
     } catch (error) {
         console.log(error);
         next(error);
