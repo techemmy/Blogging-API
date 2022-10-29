@@ -2,7 +2,7 @@ const express = require('express');
 
 const router = express.Router();
 
-router.get("/signup", (req, res, next) => {
+router.post("/signup", (req, res, next) => {
     try {
         res.json({message: "signup"})
     } catch (error) {
@@ -11,7 +11,7 @@ router.get("/signup", (req, res, next) => {
     }
 })
 
-router.get("/login", (req, res, next) => {
+router.post("/login", (req, res, next) => {
     try {
         res.json({message: "login"})
     } catch (error) {
