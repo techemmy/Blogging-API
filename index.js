@@ -2,6 +2,7 @@ const express = require("express");
 const bodyParser = require("body-parser");
 const morgan = require("morgan");
 const helmet = require("helmet");
+const authRoutes = require("./routes/auth.routes");
 
 const app = express();
 app.disable('x-powered-by')
@@ -14,6 +15,8 @@ require("./middleware")
 app.get("/", (req, res) => {
     res.status(200).json({message: "Homepage"})
 })
+
+app.use("/auth", authRoutes);
 
 app.use((req, res, next) => {
     try {
