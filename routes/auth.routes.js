@@ -9,11 +9,7 @@ router.post("/signup", passport.authenticate('signup', {session: false}), authCo
 router.post("/login", async (req, res, next) => {
     passport.authenticate('login', {failureRedirect: '/sike'}, (error, user, info) => {
         try {
-            if (error || !user) {
-                const error = new Error("An error occurred in logging in user");
-                next(error);
-            }
-            authController.login_post(req, res, next, user, info);
+            authController.login_post(error, req, res, next, user, info);
         } catch (error) {
             next(error);
         }
