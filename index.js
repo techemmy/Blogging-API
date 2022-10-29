@@ -15,6 +15,14 @@ app.get("/", (req, res) => {
     res.status(200).json({message: "Homepage"})
 })
 
+app.use((req, res, next) => {
+    try {
+        res.status(404).json({error: "Route doesn't exist!"})
+    } catch (error) {
+        next(error);
+    }
+})
+
 // error Handler middleware
 app.use((error, req, res, next) => {
     try {
