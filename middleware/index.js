@@ -1,1 +1,1 @@
-require("./passport");
+require("./passportAuth");
