@@ -13,8 +13,8 @@ exports.signup_post = (req, res, next) => {
 exports.login_post = (error, req, res, next, user, info) => {
     try {
         if (error || !user) {
-            const error = new Error("An error occurred in logging in user");
-            next(error);
+            const error = info ? info: new Error("An error occurred in logging in user");
+            return next(error);
         }
         const signedUser = {id: user._id, email: user.email};
         const token = jwt.sign({user: signedUser}, process.env.AUTH_SECRET, {expiresIn: '1h'})
