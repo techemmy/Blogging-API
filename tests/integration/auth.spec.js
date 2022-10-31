@@ -15,9 +15,9 @@ afterAll(async () => {
 
 
 describe("Signup Authentication '/auth/signup' POST request", () => {
-    afterEach(async () => {
-        await database.cleanup();
-    })
+    // afterEach(async () => {
+    //     await database.cleanup();
+    // })
 
     it("should register user successfully", async () => {
         const request = await supertest(app).post("/auth/signup").send(fixtures.testUserData.valid);
@@ -61,4 +61,16 @@ describe("Signup Authentication '/auth/signup' POST request", () => {
         const request = await supertest(app).post("/auth/signup").send(fixtures.testUserData.noPassword);
         expect(request.status).toBe(400);
     })
+})
+
+describe("Login Authentication '/auth/login' POST request", () => {
+    // afterEach(async () => {
+    //     await database.cleanup();
+    // })
+
+    it("should log user in successfully", async () => {
+        const request = await supertest(app).post("/auth/login").send(fixtures.testUserData.valid)
+        console.log(request.text);
+    })
+
 })
