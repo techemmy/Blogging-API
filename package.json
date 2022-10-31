@@ -7,7 +7,7 @@
     "start": "node app.js",
     "start-dev": "node --watch app.js",
     "test": "jest --coverage",
-    "test-dev": "jest --coverage --watch"
+    "test-dev": "jest --watch"
   },
   "repository": {
     "type": "git",
