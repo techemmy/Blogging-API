@@ -25,4 +25,4 @@ class DatabaseConnection {
   }
 }
 
-exports.connection = new DatabaseConnection();
+module.exports = new DatabaseConnection();
