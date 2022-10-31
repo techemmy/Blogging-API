@@ -5,17 +5,18 @@ const database = require("../database");
 const bcrypt = require("bcrypt");
 
 
-describe("Signup Authentication '/auth/signup' POST request", () => {
-    beforeAll(async () => {
-        await database.connect();
-    })
+beforeAll(async () => {
+    await database.connect();
+})
 
+afterAll(async () => {
+    await database.disconnect();
+})
+
+
+describe("Signup Authentication '/auth/signup' POST request", () => {
     afterEach(async () => {
         await database.cleanup();
-    })
-
-    afterAll(async () => {
-        await database.disconnect();
     })
 
     it("should register user successfully", async () => {
