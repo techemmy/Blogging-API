@@ -1,7 +1,7 @@
 const jwt = require("jsonwebtoken");
 require("dotenv").config()
 
-exports.signup_post = (req, res, next) => {
+const signup_post = (req, res, next) => {
     try {
         res.json({message: "Signup successful", user: req.user})
     } catch (error) {
@@ -10,7 +10,7 @@ exports.signup_post = (req, res, next) => {
     }
 }
 
-exports.login_post = (error, req, res, next, user, info) => {
+const login_post = (error, req, res, next, user, info) => {
     try {
         if (error || !user) {
             const error = info ? info: new Error("An error occurred in logging in user");
@@ -23,4 +23,9 @@ exports.login_post = (error, req, res, next, user, info) => {
         console.log(error);
         next(error);
     }
+}
+
+module.exports = {
+    signup_post,
+    login_post
 }
