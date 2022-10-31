@@ -36,7 +36,6 @@ passport.use('login',
             }
 
             if(!await user.isValidPassword(password)) {
-                console.log("Invalid pwd")
                 return done(null, false, {message: "Invalid login details"})
             }
 
