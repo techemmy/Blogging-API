@@ -30,6 +30,9 @@ app.use((req, res, next) => {
 // error Handler middleware
 app.use((error, req, res, next) => {
     try {
+        if (error.name === "ValidationError") { //  sets status code for mongoose validation error
+            error.status = 400;
+        }
         res.status(error.status || 500).json({error: error.message})
     } catch (error) {
         console.log(error);
