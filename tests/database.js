@@ -16,7 +16,6 @@ class DatabaseConnection {
       });
 
     await Promise.all(modelPromises);
-    console.log(Object.keys(mongoose.connection.models))
   }
 
   async disconnect() {
