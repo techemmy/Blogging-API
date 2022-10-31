@@ -34,5 +34,17 @@ module.exports = {
         lastName: "Doe",
         email: "valid@gmail.com",
         password: ""
+    },
+    validLogin: {
+        email: "valid@gmaisl.com",
+        password: "JaneDoe"
+    },
+    invalidEmailLogin: {
+        email: "wrong@gmail.com",
+        password: "JaneDoe"
+    },
+    invalidPasswordLogin: {
+        email: "valid@gmaisl.com",
+        password: "wrong"
     }
 }
