@@ -14,6 +14,7 @@ const login_post = (error, req, res, next, user, info) => {
     try {
         if (error || !user) {
             const error = info ? info: new Error("An error occurred in logging in user");
+            error.status = 400, error.statusCode = 400;
             return next(error);
         }
         const signedUser = {id: user._id, email: user.email};
