@@ -3,8 +3,8 @@ const { calculateReadingTime } = require("../utils");
 const Schema = mongoose.Schema;
 
 const blogStates = {
-    draft: "Draft",
-    published: "Published"
+    draft: "draft",
+    published: "published"
 }
 
 const BlogSchema = new Schema({
