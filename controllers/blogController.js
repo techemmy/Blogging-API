@@ -51,11 +51,18 @@ const updateBlogState = async (req, res, next) => {
         if (!state) {
             return res.status(400).json({error: "No state was provided"})
         }
+
         // updating the blog this way instead of using findByIdAndUpdate will validate if the state is in the enum schema property values
         // using findByIdAndUpdate doesn't check if the state is a valid one (according to the schema enum) before updating the blog
         const blog = await Blog.findById(blogId);
+
+        if (!blog.author.equals(req.user.id)) {
+            return res.status(403).json({error: "This blog doesn't belong to you. You can only update your blog."})
+        }
+
         blog.state = state;
         await blog.save();
+
         res.status(200).json({blog})
     } catch (error) {
         next(error);
