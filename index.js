@@ -3,6 +3,7 @@ const bodyParser = require("body-parser");
 const morgan = require("morgan");
 const helmet = require("helmet");
 const authRoutes = require("./routes/auth.routes");
+const blogRoutes = require("./routes/blog.routes");
 
 const app = express();
 app.disable('x-powered-by')
@@ -18,6 +19,7 @@ app.get("/", (req, res) => {
 })
 
 app.use("/auth", authRoutes);
+app.use("/blogs", blogRoutes);
 
 app.use((req, res, next) => {
     try {
