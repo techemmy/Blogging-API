@@ -3,7 +3,7 @@ require("dotenv").config()
 
 const signup_post = (req, res, next) => {
     try {
-        res.json({message: "Signup successful", user: req.user})
+        res.status(201).json({message: "Signup successful", user: req.user})
     } catch (error) {
         console.log(error);
         next(error);

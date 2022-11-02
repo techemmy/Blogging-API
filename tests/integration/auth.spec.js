@@ -21,7 +21,7 @@ describe("Signup Authentication '/auth/signup' POST request", () => {
 
     it("should register user successfully", async () => {
         const request = await supertest(app).post("/auth/signup").send(fixtures.testUserData.valid);
-        expect(request.status).toBe(200);
+        expect(request.status).toBe(201);
         expect(request.headers['content-type']).toContain("application/json");
         expect(request.body.user.email).toEqual(fixtures.testUserData.valid.email);
         expect(request.body.user.firstName).toEqual(fixtures.testUserData.valid.firstName);
