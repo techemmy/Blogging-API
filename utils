@@ -20,7 +20,6 @@ function isValidObjectId(id){
     // mongoose has this function but the function returns true for any string with length of 12
     // this function fixes that issue
     if(ObjectId.isValid(id)){
-        console.log(new ObjectId(id))
         if((String)(new ObjectId(id)) === id) // cast the new Object Id into string and compare it with the id, it should be the same if it's a valid id
             return true;
         return false;
