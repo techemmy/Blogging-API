@@ -8,5 +8,6 @@ const router = express.Router();
 router.get("/", authController.getAllPublishedBlogs);
 router.post("/", passport.authenticate('jwt', {session: false}), authController.createBlog);
 router.get("/:id", authController.getPublishedBlogById);
+router.patch("/state/:id", authController.updateBlogState);
 
 module.exports = router;
