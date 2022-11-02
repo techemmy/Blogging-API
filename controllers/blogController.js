@@ -43,8 +43,27 @@ const createBlog = async (req, res, next) => {
     }
 }
 
+const updateBlogState = async (req, res, next) => {
+    try {
+        const blogId = req.params.id;
+        const state = req.body.state;
+
+        if (!state) {
+            return res.status(400).json({error: "No state was provided"})
+        }
+        // updating the blog this way instead of using findByIdAndUpdate will validate if the state is in the enum schema properties
+        const blog = await Blog.findById(blogId);
+        blog.state = state;
+        await blog.save();
+        res.status(200).json({blog})
+    } catch (error) {
+        next(error);
+    }
+}
+
 module.exports = {
     getAllPublishedBlogs,
     getPublishedBlogById,
-    createBlog
+    createBlog,
+    updateBlogState
 }
