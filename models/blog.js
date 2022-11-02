@@ -2,6 +2,11 @@ const mongoose = require("mongoose");
 const { calculateReadingTime } = require("../utils");
 const Schema = mongoose.Schema;
 
+const blogStates = {
+    draft: "Draft",
+    published: "Published"
+}
+
 const BlogSchema = new Schema({
     title: {
         type: String,
@@ -21,7 +26,7 @@ const BlogSchema = new Schema({
         type: String,
         required: [true, "Blog state cannot be empty!"],
         default: "draft",
-        enum: ["draft", "Published"]
+        enum: Object.values(blogStates)
     },
     read_count: Number,
     reading_time: String,
@@ -36,4 +41,9 @@ BlogSchema.pre("save", function(next) {
     next();
 })
 
-module.exports = mongoose.model("Blog", BlogSchema);
+const Blog = mongoose.model("Blog", BlogSchema);
+
+module.exports = {
+    Blog,
+    blogStates
+}
