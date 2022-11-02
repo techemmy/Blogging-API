@@ -27,7 +27,24 @@ const getPublishedBlogById = async (req, res, next) => {
     }
 }
 
+const createBlog = async (req, res, next) => {
+    try {
+        const exists = await Blog.find({title: req.body.title})
+        if(exists) {
+            return res.status(400).json({message: "Blog already exists"});
+        }
+
+        const tags = req.body.tags.trim("").split(",").filter(tag => tag !== "") // this cleans the tags and makes sure it's not an empty string
+        const blogDetails = {...req.body, tags, author: req.user.id}
+        const blog = await Blog.create(blogDetails);
+        res.status(201).json(blog);
+    } catch (error) {
+        next(error);
+    }
+}
+
 module.exports = {
     getAllPublishedBlogs,
-    getPublishedBlogById
+    getPublishedBlogById,
+    createBlog
 }
