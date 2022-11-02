@@ -13,9 +13,8 @@ const signup_post = (req, res, next) => {
 const login_post = (error, req, res, next, user, info) => {
     try {
         if (error || !user) {
-            const error = info ? info: new Error("An error occurred in logging in user");
-            error.status = 400, error.statusCode = 400;
-            return next(error);
+            const error = info ? info: "An error occurred in logging in user";
+            return res.status(400).json({error})
         }
         const signedUser = {id: user._id, email: user.email};
         const token = jwt.sign({user: signedUser}, process.env.AUTH_SECRET, {expiresIn: '1h'})
