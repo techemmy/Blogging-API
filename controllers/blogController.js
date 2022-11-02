@@ -15,9 +15,7 @@ const getPublishedBlogById = async (req, res, next) => {
         const blogId = req.params.id;
 
         if (!isValidObjectId(blogId)) {
-            const error =  Error("Invalid blog id")
-            error.status = 400, error.statusCode = 400;
-            throw error
+            return res.status(400).json({message: "Invalid blog id"})
         }
 
         const blog = await Blog.findById(blogId)
