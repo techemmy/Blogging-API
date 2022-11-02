@@ -1,3 +1,5 @@
+const ObjectId = require('mongoose').Types.ObjectId;
+
 const calculateReadingTime = (title, body) => {
     // calculate Blog field: reading_time
     const averageReadingRate = 238
@@ -14,5 +16,14 @@ const calculateReadingTime = (title, body) => {
     }
 }
 
+function isValidObjectId(id){
+    if(ObjectId.isValid(id)){
+        console.log(new ObjectId(id))
+        if((String)(new ObjectId(id)) === id) // cast the new Object Id into string and compare it with the id, it should be the same if it's a valid id
+            return true;
+        return false;
+    }
+    return false;
+}
 
-module.exports = {calculateReadingTime}
+module.exports = {calculateReadingTime, isValidObjectId}
