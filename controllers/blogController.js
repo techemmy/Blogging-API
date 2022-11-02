@@ -15,7 +15,7 @@ const getPublishedBlogById = async (req, res, next) => {
         const blogId = req.params.id;
 
         if (!isValidObjectId(blogId)) {
-            return res.status(400).json({message: "Invalid blog id"})
+            return res.status(400).json({error: "Invalid blog id"})
         }
 
         const blog = await Blog.findById(blogId)
@@ -29,7 +29,7 @@ const createBlog = async (req, res, next) => {
     try {
         const exists = await Blog.find({title: req.body.title})
         if(exists) {
-            return res.status(400).json({message: "Blog already exists"});
+            return res.status(400).json({error: "Blog already exists"});
         }
 
         const tags = req.body.tags.trim("").split(",").filter(tag => tag !== "") // this cleans the tags and makes sure it's not an empty string
