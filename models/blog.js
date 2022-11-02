@@ -26,7 +26,8 @@ const BlogSchema = new Schema({
         type: String,
         required: [true, "Blog state cannot be empty!"],
         default: "draft",
-        enum: Object.values(blogStates)
+        enum: Object.values(blogStates),
+        lowercase: true
     },
     read_count: {
         type: Number,
