@@ -28,7 +28,10 @@ const BlogSchema = new Schema({
         default: "draft",
         enum: Object.values(blogStates)
     },
-    read_count: Number,
+    read_count: {
+        type: Number,
+        default: 0
+    },
     reading_time: String,
     tags: {
         type: [String],
@@ -40,6 +43,13 @@ BlogSchema.pre("save", function(next) {
     this.reading_time = calculateReadingTime(this.title, this.body);
     next();
 })
+
+BlogSchema.methods = {
+    updateOneReadCount: async function () {
+        this.read_count++;
+        await this.save();
+    }
+}
 
 const Blog = mongoose.model("Blog", BlogSchema);
 
