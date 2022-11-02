@@ -19,6 +19,7 @@ const getPublishedBlogById = async (req, res, next) => {
         }
 
         const blog = await Blog.findById(blogId)
+        blog.updateOneReadCount()
         res.status(200).json({blog})
     } catch (error) {
         next(error);
