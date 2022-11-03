@@ -49,6 +49,8 @@ const updateBlogToPublish_patch = async (req, res, next) => {
         // updating the blog using the method below instead of using findByIdAndUpdate will validate if the state is in the enum schema property values
         const blog = await Blog.findById(blogId);
 
+        if (blog.state === blogStates.published) return res.status(400).json({error: "Blog has been published!"})
+
         if (!blog.author.equals(req.user.id)) {
             return res.status(403).json({error: "This blog doesn't belong to you. You can only update your blog."})
         }
