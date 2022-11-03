@@ -1,7 +1,7 @@
 const {Blog, blogStates} = require("../models/blog");
 const { isValidObjectId } = require("../utils");
 
-const getAllPublishedBlogs = async (req, res, next) => {
+const getAllPublishedBlogs_get = async (req, res, next) => {
     try {
         const blogs = await Blog.find({state: blogStates.published})
         res.status(200).json({status: true, blogs})
@@ -10,7 +10,7 @@ const getAllPublishedBlogs = async (req, res, next) => {
     }
 }
 
-const getPublishedBlogById = async (req, res, next) => {
+const getPublishedBlogById_get = async (req, res, next) => {
     try {
         const blogId = req.params.id;
 
@@ -26,7 +26,7 @@ const getPublishedBlogById = async (req, res, next) => {
     }
 }
 
-const createBlog = async (req, res, next) => {
+const createBlog_post = async (req, res, next) => {
     try {
         const exists = await Blog.find({title: req.body.title})
         if(exists.length > 0) {
@@ -41,7 +41,7 @@ const createBlog = async (req, res, next) => {
     }
 }
 
-const updateBlogToPublish = async (req, res, next) => {
+const updateBlogToPublish_patch = async (req, res, next) => {
     try {
         const blogId = req.params.id;
 
@@ -62,7 +62,7 @@ const updateBlogToPublish = async (req, res, next) => {
     }
 }
 
-const editBlog = async (req, res, next) => {
+const editBlog_put = async (req, res, next) => {
     try {
         const blogId = req.params.id;
         const {title, description, body, tags} = req.body
@@ -88,9 +88,9 @@ const editBlog = async (req, res, next) => {
 }
 
 module.exports = {
-    getAllPublishedBlogs,
-    getPublishedBlogById,
-    createBlog,
-    updateBlogToPublish,
-    editBlog
+    getAllPublishedBlogs_get,
+    getPublishedBlogById_get,
+    createBlog_post,
+    updateBlogToPublish_patch,
+    editBlog_put
 }
