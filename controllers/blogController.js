@@ -89,10 +89,26 @@ const editBlog_put = async (req, res, next) => {
     }
 }
 
+const deleteBlog_post = async (req, res, next) => {
+    try {
+        const blogId = req.params.id;
+        const blog = await Blog.findById(blogId);
+        if (!blog) return res.status(400).json({error: "Blog doesn't exists"})
+        if (!blog.author.equals(req.user.id)) {
+            return res.status(403).json({error: "This blog doesn't belong to you. You can only update your blog."})
+        }
+        await Blog.findByIdAndDelete(blogId);
+        res.status(200).json({status: true, message: "Blog deleted successfully"})
+    } catch (error) {
+        next(error);
+    }
+}
+
 module.exports = {
     getAllPublishedBlogs_get,
     getPublishedBlogById_get,
     createBlog_post,
     updateBlogToPublish_patch,
-    editBlog_put
+    editBlog_put,
+    deleteBlog_post
 }

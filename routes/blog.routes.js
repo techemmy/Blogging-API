@@ -10,5 +10,6 @@ router.post("/", passport.authenticate('jwt', {session: false}), authController.
 router.get("/:id", authController.getPublishedBlogById_get);
 router.patch("/publish/:id", passport.authenticate('jwt', {session: false}), authController.updateBlogToPublish_patch);
 router.put("/:id", passport.authenticate('jwt', {session: false}), authController.editBlog_put);
+router.delete("/:id", passport.authenticate('jwt', {session: false}), authController.deleteBlog_post);
 
 module.exports = router;
