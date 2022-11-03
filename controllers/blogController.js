@@ -5,8 +5,17 @@ const getAllPublishedBlogs_get = async (req, res, next) => {
     try {
         const page = req.query.page || 1;
         const BLOGS_PER_PAGE = 20
+        // no prefix for ascending order, -1 for descending order
+        // for sorting, orderBy parameter is used in the query string
+        // e.g orderBy='createdAt' will sort in ascending, orderBy='-createdAt' will sort in descending
+        // same applies for read_count and reading_time
+        let sortBy = req.query.orderBy || ""
 
-        const blogs = await Blog.find({state: blogStates.published}).limit(BLOGS_PER_PAGE).skip((page - 1)*BLOGS_PER_PAGE);
+        if (sortBy.includes("reading_time")) {
+            sortBy = sortBy.replace("reading_time", "reading_time.inNumber")
+        }
+
+        const blogs = await Blog.find({state: blogStates.published}).limit(BLOGS_PER_PAGE).skip((page - 1)*BLOGS_PER_PAGE).sort(sortBy);
         res.status(200).json({status: true, blogs})
     } catch (error) {
         next(error);
