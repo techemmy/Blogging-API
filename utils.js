@@ -9,9 +9,9 @@ const calculateReadingTimeInString = (title, body) => {
     const minutes = String(minutesAndSeconds[0]);
     const seconds = String(`0.${minutesAndSeconds[1]}` * 60); // the decimal place is seconds
     if (minutes > 0 && seconds > 0) {
-        return `~ ${minutes} minute(s) ${seconds.slice(0, 2)} second(s)`
+        return `~ ${minutes} minute(s) ${Math.floor(seconds)} second(s)`
     } else if (seconds > 0) { // if it is decimal
-        return `~ ${seconds.slice(0, 2)} second(s)`
+        return `~ ${Math.floor(seconds)} second(s)`
     } else {
         return `~ ${totalMinutes} minute(s)`
     }
