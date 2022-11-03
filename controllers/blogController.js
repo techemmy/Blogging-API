@@ -19,7 +19,7 @@ const getPublishedBlogById_get = async (req, res, next) => {
         }
 
         const blog = await Blog.findById(blogId)
-        if (!blog) return res.status(400).json({error: "Blog doesn't exists"})
+        if (!blog) return res.status(404).json({error: "Blog not found"})
 
         blog.updateOneReadCount()
         res.status(200).json({status: true, blog})
@@ -53,7 +53,7 @@ const updateBlogToPublish_patch = async (req, res, next) => {
         // using findByIdAndUpdate doesn't check if the state is a valid one (according to the schema enum) before updating the blog
         // updating the blog using the method below instead of using findByIdAndUpdate will validate if the state is in the enum schema property values
         const blog = await Blog.findById(blogId);
-        if (!blog) return res.status(400).json({error: "Blog doesn't exists"})
+        if (!blog) return res.status(404).json({error: "Blog not found"})
 
         if (!blog.author.equals(req.user.id)) {
             return res.status(403).json({error: "This blog doesn't belong to you. You can only update your blog."})
@@ -82,7 +82,7 @@ const editBlog_put = async (req, res, next) => {
         if (await Blog.findOne({title})) return res.status(403).json({error: "Blog title has been taken!"})
 
         const blog = await Blog.findById(blogId);
-        if (!blog) return res.status(400).json({error: "Blog doesn't exists"})
+        if (!blog) return res.status(404).json({error: "Blog not found"})
 
         if (!blog.author.equals(req.user.id)) {
             return res.status(403).json({error: "This blog doesn't belong to you. You can only update your blog."})
@@ -108,7 +108,7 @@ const deleteBlog_post = async (req, res, next) => {
         }
 
         const blog = await Blog.findById(blogId);
-        if (!blog) return res.status(400).json({error: "Blog doesn't exists"})
+        if (!blog) return res.status(404).json({error: "Blog not found"})
         if (!blog.author.equals(req.user.id)) {
             return res.status(403).json({error: "This blog doesn't belong to you. You can only update your blog."})
         }
