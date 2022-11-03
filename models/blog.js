@@ -42,6 +42,8 @@ const BlogSchema = new Schema({
 
 BlogSchema.pre("save", function(next) {
     this.reading_time = calculateReadingTime(this.title, this.body);
+    this.tags = this.tags[0].trim("").split(",").filter(tag => tag !== "") // this cleans the tags and makes sure it's not an empty string
+
     next();
 })
 

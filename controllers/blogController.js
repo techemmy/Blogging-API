@@ -34,8 +34,7 @@ const createBlog = async (req, res, next) => {
             return res.status(400).json({error: "Blog already exists"});
         }
 
-        const tags = req.body.tags.trim("").split(",").filter(tag => tag !== "") // this cleans the tags and makes sure it's not an empty string
-        const blogDetails = {...req.body, tags, author: req.user.id}
+        const blogDetails = {...req.body, author: req.user.id}
         const blog = await Blog.create(blogDetails);
         res.status(201).json({status: true, blog});
     } catch (error) {
