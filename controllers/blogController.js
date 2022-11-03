@@ -121,7 +121,10 @@ const deleteBlog_post = async (req, res, next) => {
 
 const myBlogs_get = async (req, res, next) => {
     try {
-        const blogs = await Blog.find({author: req.user.id});
+        const page = req.query.page || 1;
+        const BLOGS_PER_PAGE = 10
+        if (page < 1) return res.status(404).json({error: "Page not found"})
+        const blogs = await Blog.find({author: req.user.id}).limit(BLOGS_PER_PAGE).skip((page - 1)*BLOGS_PER_PAGE);
         res.status(200).json({status: true, blogs})
     } catch (error) {
         next(error);
