@@ -1,6 +1,6 @@
 const ObjectId = require('mongoose').Types.ObjectId;
 
-const calculateReadingTime = (title, body) => {
+const calculateReadingTimeInString = (title, body) => {
     // calculate Blog field: reading_time
     const averageReadingRate = 238
     const wordsCount = [...title.split(" "), ...body.split(" ")].length; // split the title and body into items in an array and add them to the wordsCount array as items
@@ -17,6 +17,14 @@ const calculateReadingTime = (title, body) => {
     }
 }
 
+const calculateReadingTimeInNumber = (title, body) => {
+    // calculate Blog field: reading_time
+    const averageReadingRate = 238
+    const wordsCount = [...title.split(" "), ...body.split(" ")].length; // split the title and body into items in an array and add them to the wordsCount array as items
+    const totalMinutes = wordsCount / averageReadingRate;
+    return totalMinutes;
+}
+
 function isValidObjectId(id){
     // mongoose has this function but the function returns true for any string with length of 12
     // this function fixes that issue
@@ -28,4 +36,4 @@ function isValidObjectId(id){
     return false;
 }
 
-module.exports = {calculateReadingTime, isValidObjectId}
+module.exports = {calculateReadingTimeInString, calculateReadingTimeInNumber, isValidObjectId}
