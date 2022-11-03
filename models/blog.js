@@ -1,5 +1,5 @@
 const mongoose = require("mongoose");
-const { calculateReadingTime } = require("../utils");
+const { calculateReadingTimeInString, calculateReadingTimeInNumber } = require("../utils");
 const Schema = mongoose.Schema;
 
 const blogStates = {
@@ -34,7 +34,10 @@ const BlogSchema = new Schema({
         type: Number,
         default: 0
     },
-    reading_time: String,
+    reading_time: {
+        inNumber: Number,
+        inString: String
+    },
     tags: {
         type: [String],
         lowercase: true
@@ -42,7 +45,8 @@ const BlogSchema = new Schema({
 }, {timestamps: true})
 
 BlogSchema.pre("save", function(next) {
-    this.reading_time = calculateReadingTime(this.title, this.body);
+    this.reading_time.inString = calculateReadingTimeInString(this.title, this.body);
+    this.reading_time.inNumber = calculateReadingTimeInNumber(this.title, this.body);
     this.tags = this.tags[0].trim("").split(",").filter(tag => tag !== "") // this cleans the tags and makes sure it's not an empty string
 
     next();
