@@ -64,9 +64,37 @@ const updateBlogToPublish = async (req, res, next) => {
     }
 }
 
+const editBlog = async (req, res, next) => {
+    try {
+        const blogId = req.params.id;
+        const {title, description, body, tags} = req.body
+        console.log(req.body);
+        console.log(title, description, body, tags)
+
+        if (await Blog.findOne({title})) return res.status(403).json({error: "Blog title has been taken!"})
+
+        const blog = await Blog.findById(blogId);
+
+        if (!blog.author.equals(req.user.id)) {
+            return res.status(403).json({error: "This blog doesn't belong to you. You can only update your blog."})
+        }
+
+        blog.title = title || blog.title;
+        blog.description = description || blog.description;
+        blog.body = body || blog.body;
+        blog.tags = tags || blog.tags;
+        await blog.save();
+        res.status(200).json({status: true, blog})
+
+    } catch (error) {
+        next(error);
+    }
+}
+
 module.exports = {
     getAllPublishedBlogs,
     getPublishedBlogById,
     createBlog,
-    updateBlogToPublish
+    updateBlogToPublish,
+    editBlog
 }
