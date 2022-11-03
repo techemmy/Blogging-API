@@ -119,11 +119,21 @@ const deleteBlog_post = async (req, res, next) => {
     }
 }
 
+const myBlogs_get = async (req, res, next) => {
+    try {
+        const blogs = await Blog.find({author: req.user.id});
+        res.status(200).json({status: true, blogs})
+    } catch (error) {
+        next(error);
+    }
+}
+
 module.exports = {
     getAllPublishedBlogs_get,
     getPublishedBlogById_get,
     createBlog_post,
     updateBlogToPublish_patch,
     editBlog_put,
-    deleteBlog_post
+    deleteBlog_post,
+    myBlogs_get
 }
