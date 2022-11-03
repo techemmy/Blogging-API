@@ -47,7 +47,6 @@ const BlogSchema = new Schema({
 BlogSchema.pre("save", function(next) {
     this.reading_time.inString = calculateReadingTimeInString(this.title, this.body);
     this.reading_time.inNumber = calculateReadingTimeInNumber(this.title, this.body).toFixed(2);;
-    this.tags = this.tags[0].trim("").split(",").filter(tag => tag !== "") // this cleans the tags and makes sure it's not an empty string
 
     next();
 })
@@ -55,6 +54,10 @@ BlogSchema.pre("save", function(next) {
 BlogSchema.methods = {
     updateOneReadCount: async function () {
         this.read_count++;
+        await this.save();
+    },
+    cleanAndSplitTags: async function(tags) {
+        this.tags = this.tags[0].trim("").split(",").filter(tag => tag !== "") // this cleans the tags and makes sure it's not an empty string
         await this.save();
     }
 }
