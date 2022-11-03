@@ -30,7 +30,6 @@ const createBlog = async (req, res, next) => {
     try {
         const exists = await Blog.find({title: req.body.title})
         if(exists.length > 0) {
-            console.log(exists);
             return res.status(400).json({error: "Blog already exists"});
         }
 
@@ -67,8 +66,6 @@ const editBlog = async (req, res, next) => {
     try {
         const blogId = req.params.id;
         const {title, description, body, tags} = req.body
-        console.log(req.body);
-        console.log(title, description, body, tags)
 
         if (await Blog.findOne({title})) return res.status(403).json({error: "Blog title has been taken!"})
 
