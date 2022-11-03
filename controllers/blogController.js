@@ -3,7 +3,10 @@ const { isValidObjectId } = require("../utils");
 
 const getAllPublishedBlogs_get = async (req, res, next) => {
     try {
-        const blogs = await Blog.find({state: blogStates.published})
+        const page = req.query.page || 1;
+        const BLOGS_PER_PAGE = 20
+
+        const blogs = await Blog.find({state: blogStates.published}).limit(BLOGS_PER_PAGE).skip((page - 1)*BLOGS_PER_PAGE);
         res.status(200).json({status: true, blogs})
     } catch (error) {
         next(error);
@@ -123,7 +126,7 @@ const myBlogs_get = async (req, res, next) => {
     try {
         const page = req.query.page || 1;
         const state = req.query.state || "all"
-        const BLOGS_PER_PAGE = 2
+        const BLOGS_PER_PAGE = 10
 
         if (page < 1) return res.status(404).json({error: "Page not found"})
 
