@@ -65,4 +65,22 @@ module.exports = {
         body: "Testing blog data",
         tags: ["test2", "integration2"]
     },
+    valid12: {
+        title: "Blog 9",
+        description: "Test blog fixture Test blog fixture Test blog fixture Test blog fixture Test blog fixture",
+        body: "Testing blog data",
+        tags: ["test2", "integration2"]
+    },
+    valid13: {
+        title: "Blog 9",
+        description: "Test blog fixture Test blog fixture Test blog fixture Test blog fixture Test blog fixture",
+        body: "Testing blog data",
+        tags: ["test2", "integration2"]
+    },
+    valid14: {
+        title: "Blog 9",
+        description: "Test blog fixture Test blog fixture Test blog fixture Test blog fixture Test blog fixture",
+        body: "Testing blog data",
+        tags: ["test2", "integration2"]
+    },
 }
