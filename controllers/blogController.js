@@ -53,7 +53,7 @@ const getPublishedBlogById_get = async (req, res, next) => {
             return res.status(400).json({error: "Invalid blog id"})
         }
 
-        const blog = await Blog.findOne({_id: blogId, state: blogStates.published}).populate("author");
+        const blog = await Blog.findOne({_id: blogId, state: blogStates.published}).populate("author", "email firstName lastName -_id");
         if (!blog) return res.status(404).json({error: "Blog not found"})
 
         blog.updateOneReadCount()
