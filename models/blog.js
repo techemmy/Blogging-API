@@ -56,8 +56,8 @@ BlogSchema.methods = {
         this.read_count++;
         await this.save();
     },
-    cleanAndSplitTags: async function(tags) {
-        this.tags = this.tags[0].trim("").split(",").filter(tag => tag !== "") // this cleans the tags and makes sure it's not an empty string
+    cleanAndSaveTags: async function(tags) {
+        this.tags = tags.trim("").split(",").filter(tag => tag !== "") // this cleans the tags and makes sure it's not an empty string
         await this.save();
     }
 }

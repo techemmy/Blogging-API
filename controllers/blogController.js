@@ -72,6 +72,7 @@ const createBlog_post = async (req, res, next) => {
 
         const blogDetails = {...req.body, author: req.user.id}
         const blog = await Blog.create(blogDetails);
+        await blog.cleanAndSaveTags(req.body.tags);
         res.status(201).json({status: true, blog});
     } catch (error) {
         next(error);
@@ -126,8 +127,8 @@ const editBlog_put = async (req, res, next) => {
         blog.title = title || blog.title;
         blog.description = description || blog.description;
         blog.body = body || blog.body;
-        blog.tags = tags || blog.tags;
         await blog.save();
+        blog.tags = await blog.cleanAndSaveTags(tags) || blog.tags;
         res.status(200).json({status: true, blog})
 
     } catch (error) {
