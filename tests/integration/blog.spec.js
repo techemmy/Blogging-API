@@ -213,9 +213,20 @@ describe("Test for Blog GET '/blogs/mine' request", () => {
         const request = await supertest(app).post("/auth/login").send(fixtures.userTestData.valid);
 
         userToken = request.body.token;
-        await Blog.create({...fixtures.blogTestData.valid, author: user._id, state:blogStates.published})
-        await Blog.create({...fixtures.blogTestData.valid2, author: user._id, state:blogStates.published})
-        await Blog.create({...fixtures.blogTestData.valid3, author: user2._id, state:blogStates.published})
+        await Blog.create({...fixtures.blogTestData.valid, author: user2._id, state:blogStates.published})
+        await Blog.create({...fixtures.blogTestData.valid2, author: user2._id, state:blogStates.published})
+        await Blog.create({...fixtures.blogTestData.valid3, author: user._id, state:blogStates.draft})
+        await Blog.create({...fixtures.blogTestData.valid4, author: user._id, state:blogStates.draft})
+        await Blog.create({...fixtures.blogTestData.valid5, author: user._id, state:blogStates.published})
+        await Blog.create({...fixtures.blogTestData.valid6, author: user._id, state:blogStates.published})
+        await Blog.create({...fixtures.blogTestData.valid7, author: user._id, state:blogStates.published})
+        await Blog.create({...fixtures.blogTestData.valid8, author: user._id, state:blogStates.published})
+        await Blog.create({...fixtures.blogTestData.valid9, author: user._id, state:blogStates.published})
+        await Blog.create({...fixtures.blogTestData.valid10, author: user._id, state:blogStates.published})
+        await Blog.create({...fixtures.blogTestData.valid11, author: user._id, state:blogStates.published})
+        await Blog.create({...fixtures.blogTestData.valid12, author: user._id, state:blogStates.published})
+        await Blog.create({...fixtures.blogTestData.valid13, author: user._id, state:blogStates.published})
+        await Blog.create({...fixtures.blogTestData.valid14, author: user._id, state:blogStates.published})
     })
 
     afterAll(async () => {
@@ -226,10 +237,45 @@ describe("Test for Blog GET '/blogs/mine' request", () => {
         const request = await supertest(app).get("/blogs/mine")
             .set("Authorization", `Bearer ${userToken}`)
         expect(request.status).toBe(200);
+
+        expect(request.body.count).toBe(10) // 10 due to default pagination of 10 for users
+        expect(request.body.blogs.length).toBe(10)
+        expect(request.headers['content-type']).toContain("application/json");
+        expect(request.body.status).toBeTruthy()
     })
 
     it("should fail to get user blogs due to empty Authorization header", async () => {
         const request = await supertest(app).get("/blogs/mine")
-        expect(request.status).toBe(401);
+        expect(request.status).toBe(401)
+    })
+
+    it("should get user blogs by pagination", async () => {
+        const request = await supertest(app).get("/blogs/mine?page=2")
+            .set("Authorization", `Bearer ${userToken}`)
+        expect(request.status).toBe(200);
+
+        expect(request.body.count).toBe(2) // 2 because 10/14 of the blog belongs to this user and page is paginated by 10 blog per page
+        expect(request.headers['content-type']).toContain("application/json");
+        expect(request.body.status).toBeTruthy()
+    })
+
+    it("should get user blogs with state of draft", async () => {
+        const request = await supertest(app).get(`/blogs/mine?state=${blogStates.draft}`)
+            .set("Authorization", `Bearer ${userToken}`)
+        expect(request.status).toBe(200);
+
+        expect(request.body.count).toBe(2)
+        expect(request.headers['content-type']).toContain("application/json");
+        expect(request.body.status).toBeTruthy()
+    })
+
+    it("should get user blogs with state of published", async () => {
+        const request = await supertest(app).get(`/blogs/mine?state=${blogStates.published}`)
+            .set("Authorization", `Bearer ${userToken}`)
+        expect(request.status).toBe(200);
+
+        expect(request.body.count).toBe(10)
+        expect(request.headers['content-type']).toContain("application/json");
+        expect(request.body.status).toBeTruthy()
     })
 })
