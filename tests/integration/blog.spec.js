@@ -62,6 +62,19 @@ describe("Test for Blog GET '/blogs' requests", () => {
         expect(request.body.blogs[0].author.lastName).toBe(fixtures.userTestData.valid.lastName)
     })
 
+    it("should get all published blog", async () => {
+        await Blog.create({...fixtures.blogTestData.valid, author: user._id, state:blogStates.published})
+        await Blog.create({...fixtures.blogTestData.valid2, author: user._id, state:blogStates.published})
+        await Blog.create({...fixtures.blogTestData.valid3, author: user._id, state:blogStates.draft})
+
+        const request = await supertest(app).get('/blogs');
+        expect(request.status).toBe(200);
+        expect(request.headers['content-type']).toContain("application/json");
+        expect(request.body.count).toBe(2);
+        expect(request.body.status).toBeTruthy()
+        expect(request.body.blogs.every(blog => blog.state === blogStates.published)).toBeTruthy()
+    })
+
     it("should get published blogs sorted by read_count in ascending order", async () => {
         await Blog.create({...fixtures.blogTestData.valid, author: user._id, state:blogStates.published, read_count:0})
         await Blog.create({...fixtures.blogTestData.valid2, author: user._id, state:blogStates.published, read_count:1})
