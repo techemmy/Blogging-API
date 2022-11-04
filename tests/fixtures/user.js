@@ -2,7 +2,7 @@ module.exports = {
     valid: {
         firstName: "Jane",
         lastName: "Doe",
-        email: "valid@gmaisl.com",
+        email: "valid@mail.com",
         password: "JaneDoe"
     },
     valid2: {
@@ -14,13 +14,13 @@ module.exports = {
     noFirstname: {
         firstName: "",
         lastName: "Doe",
-        email: "valid@gmail.com",
+        email: "valid1@mail.com",
         password: "JaneDoe"
     },
     noLastname: {
         firstName: "Jane",
         lastName: "",
-        email: "valid@gmail.com",
+        email: "valid2@mail.com",
         password: "JaneDoe"
     },
     noEmail: {
@@ -38,19 +38,19 @@ module.exports = {
     noPassword: {
         firstName: "Jane",
         lastName: "Doe",
-        email: "valid@gmail.com",
+        email: "valid3@mail.com",
         password: ""
     },
     validLogin: {
-        email: "valid@gmaisl.com",
+        email: "valid4@mail.com",
         password: "JaneDoe"
     },
     invalidEmailLogin: {
-        email: "wrong@gmail.com",
+        email: "wrong@mail.com",
         password: "JaneDoe"
     },
     invalidPasswordLogin: {
-        email: "valid@gmaisl.com",
+        email: "valid5@mail.com",
         password: "wrong"
     }
 }
