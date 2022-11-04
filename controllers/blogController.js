@@ -15,7 +15,30 @@ const getAllPublishedBlogs_get = async (req, res, next) => {
             sortBy = sortBy.replace("reading_time", "reading_time.inNumber")
         }
 
-        const blogs = await Blog.find({state: blogStates.published}).limit(BLOGS_PER_PAGE).skip((page - 1)*BLOGS_PER_PAGE).sort(sortBy);
+        let searchQuery = {state: blogStates.published};
+        const author = req.query.author || undefined
+        const title = req.query.title || undefined
+        const tags = req.query.tags || undefined
+
+        if (title) {
+            searchQuery.title = { $regex: '.*' + title + '.*', $options: 'i' };
+        }
+
+        if (tags) {
+            searchQuery.tags = {$in: tags.split(",")}
+        }
+
+        let blogs = await Blog.find(searchQuery).populate("author", "firstName lastName -_id").limit(BLOGS_PER_PAGE).skip((page - 1)*BLOGS_PER_PAGE).sort(sortBy);
+
+        if (author) {
+            const authorRegex = new RegExp(author, 'i');
+            blogs = blogs.filter(blog => {
+                console.log(blog.author.firstName, authorRegex.test(blog.author.firstName))
+                return authorRegex.test(blog.author.firstName) ||
+                       authorRegex.test(blog.author.lastName)
+            })
+        }
+
         res.status(200).json({status: true, blogs})
     } catch (error) {
         next(error);
