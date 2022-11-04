@@ -86,8 +86,8 @@ const getPublishedBlogById_get = async (req, res, next) => {
 
 const createBlog_post = async (req, res, next) => {
     try {
-        const exists = await Blog.find({title: req.body.title})
-        if(exists.length > 0) {
+        const exists = await Blog.findOne({title: req.body.title})
+        if (exists) {
             return res.status(400).json({status: false, error: "Blog already exists"});
         }
 
