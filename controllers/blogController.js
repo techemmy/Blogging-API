@@ -39,7 +39,7 @@ const getAllPublishedBlogs_get = async (req, res, next) => {
             })
         }
 
-        res.status(200).json({status: true, blogs})
+        res.status(200).json({status: true, count: blogs.length, blogs})
     } catch (error) {
         next(error);
     }
@@ -170,7 +170,7 @@ const myBlogs_get = async (req, res, next) => {
         } else {
             blogs = await Blog.find({author: req.user.id}).limit(BLOGS_PER_PAGE).skip((page - 1)*BLOGS_PER_PAGE);
         }
-        res.status(200).json({status: true, blogs})
+        res.status(200).json({status: true, count: blogs.length, blogs})
     } catch (error) {
         next(error);
     }
