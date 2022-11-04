@@ -5,6 +5,12 @@ module.exports = {
         email: "valid@gmaisl.com",
         password: "JaneDoe"
     },
+    valid2: {
+        firstName: "Foo",
+        lastName: "Bar",
+        email: "foo@bar.com",
+        password: "foobar"
+    },
     noFirstname: {
         firstName: "",
         lastName: "Doe",
