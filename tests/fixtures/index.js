@@ -1,7 +1,7 @@
-const testUserData = require("./user");
+const userTestData = require("./user");
 const blogTestData = require("./blog");
 
 module.exports = {
-    testUserData,
+    userTestData,
     blogTestData
 }
