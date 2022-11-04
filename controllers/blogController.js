@@ -155,7 +155,7 @@ const deleteBlog_delete = async (req, res, next) => {
     }
 }
 
-const myBlogs_get = async (req, res, next) => {
+const getUserBlogs_get = async (req, res, next) => {
     try {
         const page = req.query.page || 1;
         const state = req.query.state || "all"
@@ -183,5 +183,5 @@ module.exports = {
     updateBlogToPublish_patch,
     editBlog_put,
     deleteBlog_delete,
-    myBlogs_get
+    getUserBlogs_get
 }
