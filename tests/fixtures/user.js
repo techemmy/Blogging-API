@@ -44,7 +44,7 @@ module.exports = {
 
     // login fixtures
     validLogin: {
-        email: "valid4@mail.com",
+        email: "valid@mail.com",
         password: "JaneDoe"
     },
     invalidEmailLogin: {
@@ -52,7 +52,7 @@ module.exports = {
         password: "JaneDoe"
     },
     invalidPasswordLogin: {
-        email: "valid4@mail.com",
+        email: "valid@mail.com",
         password: "wrong"
     }
 }
