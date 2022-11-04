@@ -14,8 +14,7 @@ afterAll(async () => {
 })
 
 describe("Test for Blog GET '/blogs' requests", () => {
-    let user;
-    let user2;
+    let user, user2;
 
     beforeEach(async () => {
         user = await User.create(fixtures.userTestData.valid);
