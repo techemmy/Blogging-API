@@ -45,6 +45,27 @@ const getAllPublishedBlogs_get = async (req, res, next) => {
     }
 }
 
+const getUserBlogs_get = async (req, res, next) => {
+    try {
+        const page = req.query.page || 1;
+        const state = req.query.state || "all"
+        const BLOGS_PER_PAGE = 10
+
+        if (page < 1) return res.status(404).json({error: "Page not found"})
+
+        if (state === blogStates.draft) {
+            blogs = await Blog.find({author: req.user.id, state: blogStates.draft}).limit(BLOGS_PER_PAGE).skip((page - 1)*BLOGS_PER_PAGE);
+        } else if (state === blogStates.published) {
+            blogs = await Blog.find({author: req.user.id, state: blogStates.published}).limit(BLOGS_PER_PAGE).skip((page - 1)*BLOGS_PER_PAGE);
+        } else {
+            blogs = await Blog.find({author: req.user.id}).limit(BLOGS_PER_PAGE).skip((page - 1)*BLOGS_PER_PAGE);
+        }
+        res.status(200).json({status: true, count: blogs.length, blogs})
+    } catch (error) {
+        next(error);
+    }
+}
+
 const getPublishedBlogById_get = async (req, res, next) => {
     try {
         const blogId = req.params.id;
@@ -150,27 +171,6 @@ const deleteBlog_delete = async (req, res, next) => {
         }
         await Blog.findByIdAndDelete(blogId);
         res.status(200).json({status: true, message: "Blog deleted successfully"})
-    } catch (error) {
-        next(error);
-    }
-}
-
-const getUserBlogs_get = async (req, res, next) => {
-    try {
-        const page = req.query.page || 1;
-        const state = req.query.state || "all"
-        const BLOGS_PER_PAGE = 10
-
-        if (page < 1) return res.status(404).json({error: "Page not found"})
-
-        if (state === blogStates.draft) {
-            blogs = await Blog.find({author: req.user.id, state: blogStates.draft}).limit(BLOGS_PER_PAGE).skip((page - 1)*BLOGS_PER_PAGE);
-        } else if (state === blogStates.published) {
-            blogs = await Blog.find({author: req.user.id, state: blogStates.published}).limit(BLOGS_PER_PAGE).skip((page - 1)*BLOGS_PER_PAGE);
-        } else {
-            blogs = await Blog.find({author: req.user.id}).limit(BLOGS_PER_PAGE).skip((page - 1)*BLOGS_PER_PAGE);
-        }
-        res.status(200).json({status: true, count: blogs.length, blogs})
     } catch (error) {
         next(error);
     }
