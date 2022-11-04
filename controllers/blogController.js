@@ -135,7 +135,7 @@ const editBlog_put = async (req, res, next) => {
     }
 }
 
-const deleteBlog_post = async (req, res, next) => {
+const deleteBlog_delete = async (req, res, next) => {
     try {
         const blogId = req.params.id;
         if (!isValidObjectId(blogId)) {
@@ -181,6 +181,6 @@ module.exports = {
     createBlog_post,
     updateBlogToPublish_patch,
     editBlog_put,
-    deleteBlog_post,
+    deleteBlog_delete,
     myBlogs_get
 }
