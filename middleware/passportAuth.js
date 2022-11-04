@@ -14,7 +14,7 @@ passport.use('signup',
     }, async (req, email, password, done) => {
         try {
             const {firstName, lastName} = req.body
-            const exists = await User.find({email});
+            const exists = await User.findOne({email});
             if (exists) {
                 return done(null, false, {message: "User already exists"})
             }

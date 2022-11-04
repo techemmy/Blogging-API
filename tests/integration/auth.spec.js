@@ -3,6 +3,7 @@ const app = require("../..");
 const fixtures = require("../fixtures");
 const database = require("../database");
 const bcrypt = require("bcrypt");
+const User = require("../../models/user");
 
 
 beforeAll(async () => {
@@ -15,9 +16,9 @@ afterAll(async () => {
 
 
 describe("Signup Authentication '/auth/signup' POST request", () => {
-    // afterEach(async () => {
-    //     await database.cleanup();
-    // })
+    afterAll(async () => {
+        await database.cleanup();
+    })
 
     it("should register user successfully", async () => {
         const request = await supertest(app).post("/auth/signup").send(fixtures.userTestData.valid);
@@ -27,6 +28,11 @@ describe("Signup Authentication '/auth/signup' POST request", () => {
         expect(request.body.user.firstName).toEqual(fixtures.userTestData.valid.firstName);
         expect(request.body.user.lastName).toEqual(fixtures.userTestData.valid.lastName);
         expect(await bcrypt.compare(fixtures.userTestData.valid.password, request.body.user.password)).toBeTruthy();
+    })
+
+    it("should not register user successfully because user already exists", async () => {
+        const request = await supertest(app).post("/auth/signup").send(fixtures.userTestData.valid);
+        expect(request.status).toBe(401); // passport returns 401 automatically
     })
 
     it("should not register user successfully due to no firstname", async () => {
@@ -64,9 +70,13 @@ describe("Signup Authentication '/auth/signup' POST request", () => {
 })
 
 describe("Login Authentication '/auth/login' POST request", () => {
-    // afterEach(async () => {
-    //     await database.cleanup();
-    // })
+    beforeEach(async () => {
+        await User.create(fixtures.userTestData.valid);
+    })
+
+    afterEach(async () => {
+        await database.cleanup();
+    })
 
     it("should log user in successfully", async () => {
         const request = await supertest(app).post("/auth/login").send(fixtures.userTestData.valid)
