@@ -99,7 +99,7 @@ const updateBlogToPublish_patch = async (req, res, next) => {
         blog.state = blogStates.published;
         await blog.save();
 
-        res.status(200).json({status: true, blog})
+        res.status(200).json({status: true, message: "Your blog has been published!", blog})
     } catch (error) {
         next(error);
     }
