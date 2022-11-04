@@ -5,18 +5,17 @@ const database = require("../database");
 const { Blog, blogStates } = require("../../models/blog");
 const User = require("../../models/user");
 
+beforeAll(async () => {
+    await database.connect();
+})
 
+afterAll(async () => {
+    await database.disconnect();
+})
 
 describe("Test for Blog GET '/blogs/ request", () => {
     let user;
     let user2;
-    beforeAll(async () => {
-        await database.connect();
-    })
-
-    afterAll(async () => {
-        await database.disconnect();
-    })
 
     beforeEach(async () => {
         user = await User.create(fixtures.userTestData.valid);
