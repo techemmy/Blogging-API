@@ -13,7 +13,7 @@ afterAll(async () => {
     await database.disconnect();
 })
 
-describe("Test for Blog GET '/blogs/ requests", () => {
+describe("Test for Blog GET '/blogs' requests", () => {
     let user;
     let user2;
 
@@ -189,4 +189,34 @@ describe("Test for Blog GET '/blogs/ requests", () => {
         expect(request.body.blogs[0].tags).toEqual(fixtures.blogTestData.valid.tags);
     })
 
+})
+
+describe("Test for Blog GET '/blogs/mine' request", () => {
+    let userToken;
+
+    beforeAll(async () => {
+        const user = await User.create(fixtures.userTestData.valid);
+        const user2 = await User.create(fixtures.userTestData.valid2);
+        const request = await supertest(app).post("/auth/login").send(fixtures.userTestData.valid);
+
+        userToken = request.body.token;
+        await Blog.create({...fixtures.blogTestData.valid, author: user._id, state:blogStates.published})
+        await Blog.create({...fixtures.blogTestData.valid2, author: user._id, state:blogStates.published})
+        await Blog.create({...fixtures.blogTestData.valid3, author: user2._id, state:blogStates.published})
+    })
+
+    afterAll(async () => {
+        await database.cleanup();
+    })
+
+    it("should get user blogs", async () => {
+        const request = await supertest(app).get("/blogs/mine")
+            .set("Authorization", `Bearer ${userToken}`)
+        expect(request.status).toBe(200);
+    })
+
+    it("should fail to get user blogs due to empty Authorization header", async () => {
+        const request = await supertest(app).get("/blogs/mine")
+        expect(request.status).toBe(401);
+    })
 })
