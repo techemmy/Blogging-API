@@ -13,7 +13,7 @@ afterAll(async () => {
     await database.disconnect();
 })
 
-describe("Test for Blog GET '/blogs/ request", () => {
+describe("Test for Blog GET '/blogs/ requests", () => {
     let user;
     let user2;
 
