@@ -51,6 +51,15 @@ describe("Test for Blog POST '/' request", () => {
         expect(request.body.status).toBeFalsy()
     })
 
+    it("should fail to create blog due to missing required data", async () => {
+        const request = await supertest(app).post("/blogs")
+            .send()
+            .set("Authorization", `Bearer ${userToken}`)
+        expect(request.status).toBe(400);
+        expect(request.headers['content-type']).toContain("application/json");
+        expect(request.body.status).toBeFalsy()
+    })
+
     it("should fail to create blog successfully because no data is sent", async () => {
         const request = await supertest(app).post("/blogs")
             .set("Authorization", `Bearer ${userToken}`)
