@@ -259,6 +259,14 @@ describe("Test for Blog GET '/blogs/mine' request", () => {
         expect(request.body.status).toBeTruthy()
     })
 
+    it("should fail to get user blogs by pagination because page parameter value is less than 1", async () => {
+        const request = await supertest(app).get("/blogs/mine?page=0")
+            .set("Authorization", `Bearer ${userToken}`)
+        expect(request.status).toBe(404);
+        expect(request.headers['content-type']).toContain("application/json");
+        expect(request.body.status).toBeFalsy()
+    })
+
     it("should get user blogs with state of draft", async () => {
         const request = await supertest(app).get(`/blogs/mine?state=${blogStates.draft}`)
             .set("Authorization", `Bearer ${userToken}`)
