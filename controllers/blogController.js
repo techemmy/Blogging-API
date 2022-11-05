@@ -5,12 +5,12 @@ const getAllPublishedBlogs_get = async (req, res, next) => {
 	try {
 		const page = req.query.page || 1;
 		const BLOGS_PER_PAGE = 20;
+
 		// no prefix for ascending order, -1 for descending order
 		// for sorting, orderBy parameter is used in the query string
 		// e.g orderBy='createdAt' will sort in ascending, orderBy='-createdAt' will sort in descending
 		// same applies for read_count and reading_time
 		let sortBy = req.query.orderBy || "";
-
 		if (sortBy.includes("reading_time")) {
 			sortBy = sortBy.replace("reading_time", "reading_time.inNumber");
 		}
@@ -80,6 +80,7 @@ const getUserBlogs_get = async (req, res, next) => {
 				.limit(BLOGS_PER_PAGE)
 				.skip((page - 1) * BLOGS_PER_PAGE);
 		}
+
 		res.status(200).json({ status: true, count: blogs.length, blogs });
 	} catch (error) {
 		next(error);
@@ -133,14 +134,13 @@ const createBlog_post = async (req, res, next) => {
 const updateBlogToPublish_patch = async (req, res, next) => {
 	try {
 		const blogId = req.params.id;
+
 		if (!isValidObjectId(blogId)) {
 			return res
 				.status(400)
 				.json({ status: false, error: "Invalid blog id" });
 		}
 
-		// using findByIdAndUpdate doesn't check if the state is a valid one (according to the schema enum) before updating the blog
-		// updating the blog using the method below instead of using findByIdAndUpdate will validate if the state is in the enum schema property values
 		const blog = await Blog.findById(blogId);
 		if (!blog)
 			return res
@@ -155,15 +155,15 @@ const updateBlogToPublish_patch = async (req, res, next) => {
 					error: "This blog doesn't belong to you. You can only update your blog.",
 				});
 		}
-
 		if (blog.state === blogStates.published)
 			return res
 				.status(400)
 				.json({ status: false, error: "Blog has been published!" });
 
+		// using findByIdAndUpdate doesn't check if the state is a valid one (according to the schema enum) before updating the blog
+		// updating the blog using the method below instead of using findByIdAndUpdate will validate if the state is in the enum schema property values
 		blog.state = blogStates.published;
 		await blog.save();
-
 		res.status(200).json({
 			status: true,
 			message: "Your blog has been published!",
@@ -195,7 +195,6 @@ const editBlog_put = async (req, res, next) => {
 			return res
 				.status(404)
 				.json({ status: false, error: "Blog not found" });
-
 		if (!blog.author.equals(req.user.id)) {
 			return res
 				.status(403)
@@ -219,6 +218,7 @@ const editBlog_put = async (req, res, next) => {
 const deleteBlog_delete = async (req, res, next) => {
 	try {
 		const blogId = req.params.id;
+
 		if (!isValidObjectId(blogId)) {
 			return res
 				.status(400)
@@ -238,6 +238,7 @@ const deleteBlog_delete = async (req, res, next) => {
 					error: "This blog doesn't belong to you. You can only update your blog.",
 				});
 		}
+
 		await Blog.findByIdAndDelete(blogId);
 		res.status(200).json({
 			status: true,
