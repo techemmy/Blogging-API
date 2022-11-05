@@ -381,7 +381,7 @@ describe("Test for Blog POST '/' request", () => {
 
 })
 
-describe("Test for Blog PATCH '/publish/:id' request", () => {
+describe("Test for Blog PATCH '/blogs/publish/:id' request", () => {
     let userToken, blogInDraft, deletedBlogId, blogByAnotherUser;
 
     beforeAll(async () => {
