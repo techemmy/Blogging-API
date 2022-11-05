@@ -14,7 +14,7 @@ afterAll(async () => {
 })
 
 
-describe("Test for Blog PUT '/blogs/:id' request", () => {
+describe("Test updating blog data using it's id on the Blog PUT '/blogs/:id' request endpoint", () => {
     let userToken, userBlog, deletedBlogId, blogByAnotherUser;
 
     beforeAll(async () => {
@@ -49,13 +49,13 @@ describe("Test for Blog PUT '/blogs/:id' request", () => {
         expect(request.body.blog.body).toBe(fixtures.blogTestData.valid3.body)
     })
 
-    it("should fail to edit blog due to missing token header", async () => {
+    it("should fail to edit blog due to missing token authorization header", async () => {
         const request = await supertest(app).put(`/blogs/${userBlog._id}`)
             .send({...fixtures.userTestData.valid3, tags: fixtures.blogTestData.valid3.tags.join(",")})
         expect(request.status).toBe(401);
     })
 
-    it("should fail to edit blog due to invalid blog id", async () => {
+    it("should fail to edit blog due to an invalid blog id", async () => {
         const request = await supertest(app).put(`/blogs/invalidID`)
             .send({...fixtures.userTestData.valid3, tags: fixtures.blogTestData.valid3.tags.join(",")})
             .set("Authorization", `Bearer ${userToken}`)
@@ -63,7 +63,7 @@ describe("Test for Blog PUT '/blogs/:id' request", () => {
         expect(request.body.status).toBeFalsy();
     })
 
-    it("should fail to edit blog due to blog not found", async () => {
+    it("should fail to edit blog because it's a nonexisting blog", async () => {
         const request = await supertest(app).put(`/blogs/${deletedBlogId}`)
             .send({...fixtures.userTestData.valid3, tags: fixtures.blogTestData.valid3.tags.join(",")})
             .set("Authorization", `Bearer ${userToken}`)

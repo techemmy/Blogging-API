@@ -13,7 +13,7 @@ afterAll(async () => {
     await database.disconnect();
 })
 
-describe("Test for Blog PATCH '/blogs/publish/:id' request", () => {
+describe("Test to publish blog using the blog id by updating it's state to publish on the Blog PATCH '/blogs/publish/:id' request endpoint", () => {
     let userToken, blogInDraft, deletedBlogId, blogByAnotherUser;
 
     beforeAll(async () => {
@@ -44,7 +44,7 @@ describe("Test for Blog PATCH '/blogs/publish/:id' request", () => {
         expect(request.body.blog.state).toBe(blogStates.published)
     })
 
-    it("should fail to publish blog successfully due to invalid id", async () => {
+    it("should fail to publish blog successfully due to an invalid blog id", async () => {
         const request = await supertest(app).patch(`/blogs/publish/notavalididI`)
             .set("Authorization", `Bearer ${userToken}`)
         expect(request.status).toBe(400);
@@ -52,12 +52,12 @@ describe("Test for Blog PATCH '/blogs/publish/:id' request", () => {
         expect(request.body.status).toBeFalsy()
     })
 
-    it("should fail to publish blog successfully due to missing token header", async () => {
+    it("should fail to publish blog successfully due to missing token authorization header", async () => {
         const request = await supertest(app).patch(`/blogs/publish/${blogInDraft._id}`)
         expect(request.status).toBe(401);
     })
 
-    it("should fail to publish blog successfully due to nonexisting blog id", async () => {
+    it("should fail to publish blog successfully because it's a nonexisting blog", async () => {
         const request = await supertest(app).patch(`/blogs/publish/${deletedBlogId}`)
             .set("Authorization", `Bearer ${userToken}`)
         expect(request.status).toBe(404);
@@ -73,7 +73,7 @@ describe("Test for Blog PATCH '/blogs/publish/:id' request", () => {
         expect(request.body.status).toBeFalsy()
     })
 
-    it("should fail to publish blog again because blog is published already", async () => {
+    it("should fail to publish blog twice since the current blog is published already", async () => {
         const request = await supertest(app).patch(`/blogs/publish/${blogInDraft._id}`) // blogInDraft has already been published in a prior request
             .set("Authorization", `Bearer ${userToken}`)
         expect(request.status).toBe(400);

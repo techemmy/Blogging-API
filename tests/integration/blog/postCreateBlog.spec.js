@@ -14,7 +14,7 @@ afterAll(async () => {
     await database.disconnect();
 })
 
-describe("Test for Blog POST '/' request", () => {
+describe("Test creating a new blog for the logged in user on the Blog POST '/' request endpoint", () => {
     let userToken;
     beforeAll(async () => {
         await User.create(fixtures.userTestData.valid);
@@ -68,7 +68,7 @@ describe("Test for Blog POST '/' request", () => {
         expect(request.body.status).toBeFalsy()
     })
 
-    it("should fail to create blog successfully because no token is found in header", async () => {
+    it("should fail to create blog successfully due to missing token authorization header", async () => {
         const request = await supertest(app).post("/blogs/")
             .send(fixtures.blogTestData.valid)
         expect(request.status).toBe(401);

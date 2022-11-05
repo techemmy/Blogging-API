@@ -13,7 +13,7 @@ afterAll(async () => {
     await database.disconnect();
 })
 
-describe("Test for Blog GET '/blogs/:id' request", () => {
+describe("Tests to get a published blog by the blog's id on the Blog GET '/blogs/:id' request endpoint", () => {
     let user, blog1, blog2;
     beforeAll(async () => {
         user = await User.create(fixtures.userTestData.valid);
@@ -25,7 +25,7 @@ describe("Test for Blog GET '/blogs/:id' request", () => {
         await database.cleanup();
     })
 
-    it("should fail to get blogs due to invalid blog id", async () => {
+    it("should fail to get a blog due to an invalid blog id", async () => {
         const request = await supertest(app).get("/blogs/kakljfdk3kd2")
         expect(request.status).toBe(400);
         expect(request.headers['content-type']).toContain("application/json");
@@ -45,14 +45,14 @@ describe("Test for Blog GET '/blogs/:id' request", () => {
         expect(request.body.blog.tags).toEqual(blog1.tags)
     })
 
-    it("should get no blog with a state of draft", async () => {
+    it("should fail to get a blog in 'draft' state", async () => {
         const request = await supertest(app).get(`/blogs/${blog2._id}`)
         expect(request.status).toBe(404);
         expect(request.headers['content-type']).toContain("application/json");
         expect(request.body.status).toBeFalsy()
     })
 
-    it("should return blog not found for user valid id", async () => {
+    it("should fail to get a blog because it's a nonexisting blog", async () => {
         const request = await supertest(app).get(`/blogs/${user._id}`)
         expect(request.status).toBe(404);
         expect(request.headers['content-type']).toContain("application/json");

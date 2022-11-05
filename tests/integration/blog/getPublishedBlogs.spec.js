@@ -13,7 +13,7 @@ afterAll(async () => {
     await database.disconnect();
 })
 
-describe("Test for Blog GET '/blogs' requests", () => {
+describe("Tests to get all published blogs on the Blog GET '/blogs' request endpoint", () => {
     let user, user2;
 
     beforeEach(async () => {
@@ -25,7 +25,7 @@ describe("Test for Blog GET '/blogs' requests", () => {
         await database.cleanup();
     })
 
-    it("should get all blogs successfully with an empty blog", async () => {
+    it("should get all blogs successfully with are empty", async () => {
         const request = await supertest(app).get('/blogs/');
         expect(request.status).toBe(200);
         expect(request.headers['content-type']).toContain("application/json");
@@ -34,7 +34,7 @@ describe("Test for Blog GET '/blogs' requests", () => {
         expect(request.body.status).toBeTruthy()
     })
 
-    it("should get no published blog", async () => {
+    it("should get no published blogs as 'draft' is a new blog's default state", async () => {
         await Blog.create({...fixtures.blogTestData.valid, author: user._id})
 
         const request = await supertest(app).get('/blogs');

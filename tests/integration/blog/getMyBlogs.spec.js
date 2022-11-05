@@ -14,7 +14,7 @@ afterAll(async () => {
     await database.disconnect();
 })
 
-describe("Test for Blog GET '/blogs/mine' request", () => {
+describe("Test to get all published blogs for the logged in user on the Blog GET '/blogs/mine' request endpoint", () => {
     let userToken;
 
     beforeAll(async () => {
@@ -54,7 +54,7 @@ describe("Test for Blog GET '/blogs/mine' request", () => {
         expect(request.body.status).toBeTruthy()
     })
 
-    it("should fail to get user blogs due to empty Authorization header", async () => {
+    it("should fail to get user blogs due to missing token authorization header", async () => {
         const request = await supertest(app).get("/blogs/mine")
         expect(request.status).toBe(401)
     })

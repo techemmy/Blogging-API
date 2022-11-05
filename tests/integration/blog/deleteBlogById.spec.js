@@ -13,7 +13,7 @@ afterAll(async () => {
     await database.disconnect();
 })
 
-describe("Test for Blog DELETE '/blogs/:id' request", () => {
+describe("Test to delete a user's blog by id on the Blog DELETE '/blogs/:id' request endpoint", () => {
     let userToken, userBlog, deletedBlogId, blogByAnotherUser;
 
     beforeAll(async () => {
@@ -43,12 +43,12 @@ describe("Test for Blog DELETE '/blogs/:id' request", () => {
         expect(request.body.status).toBeTruthy()
     })
 
-    it("should fail to delete blog due to missing token header", async () => {
+    it("should fail to delete blog due to missing token authorization header", async () => {
         const request = await supertest(app).delete(`/blogs/${userBlog._id}`)
         expect(request.status).toBe(401);
     })
 
-    it("should fail to delete blog due to invalid blog id", async () => {
+    it("should fail to delete blog due to an invalid blog id", async () => {
         const request = await supertest(app).delete(`/blogs/invalidBlogId}`)
             .set("Authorization", `Bearer ${userToken}`)
         expect(request.status).toBe(400);
@@ -56,7 +56,7 @@ describe("Test for Blog DELETE '/blogs/:id' request", () => {
         expect(request.body.status).toBeFalsy()
     })
 
-    it("should fail to delete blog because blog doesn't exist", async () => {
+    it("should fail to delete blog because it's a nonexisting blog", async () => {
         const request = await supertest(app).delete(`/blogs/${deletedBlogId}`)
             .set("Authorization", `Bearer ${userToken}`)
         expect(request.status).toBe(404);
@@ -64,7 +64,7 @@ describe("Test for Blog DELETE '/blogs/:id' request", () => {
         expect(request.body.status).toBeFalsy()
     })
 
-    it("should fail to delete blog doesn't belongs to another user", async () => {
+    it("should fail to delete blog because blog belongs to another user", async () => {
         const request = await supertest(app).delete(`/blogs/${blogByAnotherUser._id}`)
             .set("Authorization", `Bearer ${userToken}`)
         expect(request.status).toBe(403);
