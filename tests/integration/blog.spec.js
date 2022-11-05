@@ -512,7 +512,6 @@ describe("Test for Blog PUT '/blogs/:id' request", () => {
         const request = await supertest(app).put(`/blogs/${blogByAnotherUser._id}`)
             .send({...fixtures.userTestData.valid3, tags: fixtures.blogTestData.valid3.tags.join(",")})
             .set("Authorization", `Bearer ${userToken}`)
-            console.log(request.body)
         expect(request.status).toBe(403);
         expect(request.body.status).toBeFalsy();
     })
