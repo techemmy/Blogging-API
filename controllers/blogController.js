@@ -33,7 +33,6 @@ const getAllPublishedBlogs_get = async (req, res, next) => {
         if (author) {
             const authorRegex = new RegExp(author, 'i');
             blogs = blogs.filter(blog => {
-                console.log(blog.author.firstName, authorRegex.test(blog.author.firstName))
                 return authorRegex.test(blog.author.firstName) ||
                        authorRegex.test(blog.author.lastName)
             })
