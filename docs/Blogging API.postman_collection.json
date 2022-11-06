@@ -1,0 +1,401 @@
+{
+	"info": {
+		"_postman_id": "ed5ef2d8-4125-4722-9359-f9aa132172d7",
+		"name": "Blogging API",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "11729879"
+	},
+	"item": [
+		{
+			"name": "Auth",
+			"item": [
+				{
+					"name": "Signup",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"firstName\": \"Foo\",\n    \"lastName\": \"Bar\",\n    \"email\": \"foobar@gmail.com\",\n    \"password\": \"foobar\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8000/auth/signup",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"auth",
+								"signup"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Login",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"email\": \"foobar@gmail.com\",\n    \"password\": \"foobar\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8000/auth/login",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"auth",
+								"login"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"description": "The authentication API requires no Authorization header.  \nMake sure you provide the required details.",
+			"auth": {
+				"type": "noauth"
+			},
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				}
+			]
+		},
+		{
+			"name": "Blogs",
+			"item": [
+				{
+					"name": "Create Blog",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "    {\n        \"title\": \"My Blog 1\",\n        \"description\": \"Creating API Documentation\",\n        \"body\": \"You should be able to import API configurations for both postman and thunder client\",\n        \"tags\": \"api,productivity,programming\"\n    }",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8000/blogs",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"blogs"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Publish Blog",
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8000/blogs/publish/636821795b3f3bf741ddacb0",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"blogs",
+								"publish",
+								"636821795b3f3bf741ddacb0"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Published Blog By Id",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8000/blogs/636821795b3f3bf741ddacb0",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"blogs",
+								"636821795b3f3bf741ddacb0"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Published Blogs",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "localhost:8000/blogs?page=1&orderBy=-createdAt&title&author&tags=api,productivity",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"blogs"
+							],
+							"query": [
+								{
+									"key": "page",
+									"value": "1",
+									"description": "The page number"
+								},
+								{
+									"key": "orderBy",
+									"value": "-createdAt",
+									"description": "What do you want to sort with? createdAt, read_count or reading_time"
+								},
+								{
+									"key": "title",
+									"value": null,
+									"description": "Search by blog title"
+								},
+								{
+									"key": "author",
+									"value": null,
+									"description": "Search by blog author"
+								},
+								{
+									"key": "tags",
+									"value": "api,productivity",
+									"description": "Search by blog tag(s)"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Logged In User blogs",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "localhost:8000/blogs/mine",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"blogs",
+								"mine"
+							],
+							"query": [
+								{
+									"key": "page",
+									"value": "1",
+									"description": "The blog page (pagination)",
+									"disabled": true
+								},
+								{
+									"key": "state",
+									"value": "published",
+									"description": "Filter using blog state",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Edit/Update Blog by Id",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"title\": \"My Book\",\n  \"description\": \"It's for programmers\",\n  \"tags\": \"programming,motivation\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8000/blogs/636821795b3f3bf741ddacb0",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"blogs",
+								"636821795b3f3bf741ddacb0"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Blog By Id",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8000/blogs/636821795b3f3bf741ddacb0",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"blogs",
+								"636821795b3f3bf741ddacb0"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"description": "Some of the endpoints requires Authorization header with Bearer {token}.\n\n**Get Published Blogs** & **Get Published Blogs By Id** endpoints do not require the auth header.",
+			"auth": {
+				"type": "bearer",
+				"bearer": [
+					{
+						"key": "token",
+						"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoiNjM2ODIwNGVhZWZmY2UzNmFmMmI2OWIyIiwiZW1haWwiOiJmb29iYXJAZ21haWwuY29tIn0sImlhdCI6MTY2Nzc2ODQwNiwiZXhwIjoxNjY3NzcyMDA2fQ.GMpCjKytz306czfo-RNTSfgY0ooe2IP5kVZNETCjfrw",
+						"type": "string"
+					}
+				]
+			},
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				}
+			]
+		}
+	],
+	"auth": {
+		"type": "bearer"
+	},
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "contentTypeJson",
+			"value": "application/json"
+		}
+	]
+}
