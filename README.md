@@ -1,6 +1,6 @@
 # Blogging-API
 
-This is an API for a blogging app
+This is an API for blogging
 
 ---
 Check the [Project Live Url](https://blogging-api.onrender.com/)
