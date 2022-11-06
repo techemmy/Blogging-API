@@ -70,7 +70,7 @@ This is a guide on the available routes and how to use them
 
 ```json
 {
-    "firstame": "Foo",
+    "firstName": "Foo",
     "lastName": "Bar",
     "email": "foobar@gmail.com",
     "password": "foobar"
