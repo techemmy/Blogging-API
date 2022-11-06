@@ -209,7 +209,7 @@ const editBlog_put = async (req, res, next) => {
 		blog.body = body || blog.body;
 		await blog.save();
 		blog.tags = (await blog.cleanAndSaveTags(tags)) || blog.tags;
-		res.status(200).json({ status: true, blog });
+		res.status(200).json({ status: true, message: "Blog edited successfully", blog });
 	} catch (error) {
 		next(error);
 	}
