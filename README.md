@@ -25,6 +25,7 @@ Check the [Project Live Url](https://blogging-api.onrender.com/)
 
     npm test
 Check `localhost:<PORT>` to see the running app where PORT is specified in .env as `API_PORT`
+Check the  `./docs` folder to get an export of my this API Thunder Client Collection
 
 ## Models
 
