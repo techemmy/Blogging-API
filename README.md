@@ -3,7 +3,10 @@
 This is an API for blogging
 
 ---
-Check the [Project Live Url](https://blogging-api.onrender.com/)
+Check the Project Live Url
+
+- [On Heroku](https://blogging-api-altschool.herokuapp.com/)
+- [On Render](https://blogging-api.onrender.com/)
 
 ## Setup to Run
 
@@ -25,7 +28,8 @@ Check the [Project Live Url](https://blogging-api.onrender.com/)
 
     npm test
 
-## NOTE:
+## NOTE
+
 - Check the  `./docs` folder to get an export of my API collection from Postman or Thunder Client Collection to get the endpoints fast.
 - Check `localhost:<PORT>` to see the running app where PORT is specified in .env as `API_PORT`
 
