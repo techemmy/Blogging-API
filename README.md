@@ -263,7 +263,7 @@ This is a guide on the available routes and how to use them
 
 - Query Parameters
   - page (default: 1)
-  - orderBy (default: createdAt))
+  - orderBy (default: createdAt) others: reading_time and read_count
   - title
   - author
   - tags
