@@ -25,8 +25,9 @@ Check the [Project Live Url](https://blogging-api.onrender.com/)
 
     npm test
 
+## NOTE:
+- Check the  `./docs` folder to get an export of my API collection from Postman or Thunder Client Collection to get the endpoints fast.
 - Check `localhost:<PORT>` to see the running app where PORT is specified in .env as `API_PORT`
-- Check the  `./docs` folder to get an export of my this API Thunder Client Collection
 
 ## Models
 
@@ -263,7 +264,7 @@ This is a guide on the available routes and how to use them
 
 - Query Parameters
   - page (default: 1)
-  - orderBy (default: createdAt) others: reading_time and read_count
+  - orderBy (default: createdAt) other value options: reading_time and read_count. Prefix it with a `-` sign to query in descending order e.g -createdAt will arrange the blogs from the latest to the oldest
   - title
   - author
   - tags
