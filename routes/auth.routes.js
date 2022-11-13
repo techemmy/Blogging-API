@@ -4,6 +4,88 @@ const passport = require("passport");
 
 const router = express.Router();
 
+/**
+ *  @swagger
+ *   components:
+ *     schemas:
+ *       Auth:
+ *         type: object
+ *         required:
+ *           - email
+ *           - firstName
+ *           - lastName
+ *           - password
+ *         properties:
+ *           id:
+ *             type: integer
+ *             description: The auto-generated id for a user.
+ *           email:
+ *             type: string
+ *             description: The user's email
+ *           firstName:
+ *             type: string
+ *             description: The user's first name
+ *           lastName:
+ *             type: string
+ *             description: The user's last name
+ *           password:
+ *             type: string
+ *             description: The user's password
+ *         example:
+ *            email: foobar@gmail.com
+ *            firstName: Foo
+ *            lastName: Bar
+ *            password: foobar
+ */
+
+/**
+ *  @swagger
+ *  tags:
+ *    name: Auth
+ *    description: API to manage your authentication.
+ */
+
+/**
+ *  @swagger
+ * paths:
+ *   /signup:
+ *     post:
+ *       summary: Create a new user
+ *       tags: [Auth]
+ *       requestBody:
+ *         required: true
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/Auth'
+ *       responses:
+ *         "201":
+ *           description: User created successfully
+ *
+ *   /login:
+ *     post:
+ *       summary: Log user in
+ *       tags: [Auth]
+ *       requestBody:
+ *         required: true
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: 'object'
+ *               properties:
+ *                 email:
+ *                   type: string
+ *                   example: foobar@gmail.com
+ *                 password:
+ *                   type: string
+ *                   example: foobar
+ *       responses:
+ *         "200":
+ *           description: Logged in successfully
+ */
+
+
+
 router.post(
 	"/signup",
 	passport.authenticate("signup", { session: false }),

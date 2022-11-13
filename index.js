@@ -26,11 +26,14 @@ const options = {
         },
         servers: [
             {
+                url: "http://localhost:8000/auth",
+            },
+            {
                 url: "http://localhost:8000/blogs",
             },
         ],
     },
-    apis: ["./routes/blog.routes.js"],
+    apis: [ "./routes/auth.routes.js", "./routes/blog.routes.js"],
 };
 
 const specs = swaggerJsdoc(options);
