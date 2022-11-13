@@ -71,9 +71,7 @@ const router = express.Router();
  *  tags:
  *    name: Blogs
  *    description: API to manage your blogs.
- */
-
-/**
+ *
  * components:
  *   securitySchemes:
  *     bearerAuth:
