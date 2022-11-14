@@ -25,10 +25,12 @@ const options = {
         },
         servers: [
             {
-                url: "https://localhost:8000/auth",
+                url: "https://blogging-api.onrender.com/auth",
+                url: "https://blogging-api-altschool.herokuapp.com/auth"
             },
             {
-                url: "https://localhost:8000/blogs",
+                url: "https://blogging-api.onrender.com/blogs",
+                url: "https://blogging-api-altschool.herokuapp.com/blogs",
             },
         ],
     },
