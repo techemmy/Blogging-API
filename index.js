@@ -25,10 +25,10 @@ const options = {
         },
         servers: [
             {
-                url: "http://localhost:8000/auth",
+                url: "https://localhost:8000/auth",
             },
             {
-                url: "http://localhost:8000/blogs",
+                url: "https://localhost:8000/blogs",
             },
         ],
     },

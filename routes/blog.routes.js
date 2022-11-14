@@ -75,7 +75,7 @@ const router = express.Router();
  * components:
  *   securitySchemes:
  *     bearerAuth:
- *       type: http
+ *       type: https
  *       scheme: bearer
  *       bearerFormat: JWT
  */
