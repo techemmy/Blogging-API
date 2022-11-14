@@ -9,8 +9,6 @@ const authRoutes = require("./routes/auth.routes");
 const blogRoutes = require("./routes/blog.routes");
 
 const app = express();
-app.disable("x-powered-by");
-
 const options = {
     definition: {
         openapi: "3.0.0",
@@ -36,15 +34,15 @@ const options = {
     },
     apis: [ "./routes/auth.routes.js", "./routes/blog.routes.js"],
 };
-
 const specs = swaggerJsdoc(options);
+
 app.use(cors());
 app.use(
     "/api-docs",
     swaggerUi.serve,
     swaggerUi.setup(specs, { explorer: true })
 );
-
+app.disable("x-powered-by");
 app.use(morgan("dev"));
 app.use(helmet());
 app.use(bodyParser.json());
