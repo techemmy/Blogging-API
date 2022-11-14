@@ -28,16 +28,10 @@ const options = {
                 url: "https://blogging-api.onrender.com/auth",
             },
             {
-                url: "https://blogging-api-altschool.herokuapp.com/auth",
-            },
-            {
                 url: "http://localhost:8000/auth"
             },
             {
                 url: "https://blogging-api.onrender.com/blogs"
-            },
-            {
-                url: "https://blogging-api-altschool.herokuapp.com/blogs",
             },
             {
                 url: "http://localhost:8000/blogs"
