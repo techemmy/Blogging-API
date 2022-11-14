@@ -4,6 +4,7 @@ const morgan = require("morgan");
 const helmet = require("helmet");
 const swaggerJsdoc = require("swagger-jsdoc");
 const swaggerUi = require("swagger-ui-express");
+const cors = require("cors");
 const authRoutes = require("./routes/auth.routes");
 const blogRoutes = require("./routes/blog.routes");
 
@@ -37,6 +38,7 @@ const options = {
 };
 
 const specs = swaggerJsdoc(options);
+app.use(cors());
 app.use(
     "/api-docs",
     swaggerUi.serve,
