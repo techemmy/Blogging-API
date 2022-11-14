@@ -11,7 +11,7 @@ Check the Project Live Url
 
 ### Use Swagger Docs to view API
 
-Visit the `/api-docs/` route to use swagger to expore the API
+Visit the `/api-docs/` route to use swagger to explore the API
 
 ## Setup to Run
 
