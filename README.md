@@ -8,6 +8,10 @@ Check the Project Live Url
 - [On Heroku](https://blogging-api-altschool.herokuapp.com/)
 - [On Render](https://blogging-api.onrender.com/)
 
+
+### Use Swagger Docs to view API
+Visit the `/api-docs/` route to use swagger to expore the API
+
 ## Setup to Run
 
 - Install NodeJS
