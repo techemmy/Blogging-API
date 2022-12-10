@@ -5,7 +5,6 @@ This is an API for blogging
 ---
 Check the Project Live Url
 
-- [On Heroku](https://blogging-api-altschool.herokuapp.com/)
 - [On Render](https://blogging-api.onrender.com/)
 
 
