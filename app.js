@@ -1,9 +1,7 @@
 const app = require("./index");
 const { connectToMongoDb } = require("./database");
+const { DB_URI, API_PORT } = require("./config/config");
 require("dotenv").config();
-
-const API_PORT = process.env.PORT || 3000;
-const DB_URI = process.env.DB_URI;
 
 connectToMongoDb(DB_URI);
 

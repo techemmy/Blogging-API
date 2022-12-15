@@ -1,5 +1,9 @@
 const swaggerJsdoc = require("swagger-jsdoc");
 
+const API_PORT = process.env.PORT || 3000;
+const DB_URI = process.env.DB_URI;
+
+
 const swaggerOptions = {
     definition: {
         openapi: "3.0.0",
@@ -33,4 +37,6 @@ const swaggerOptions = {
 };
 const swaggerSpecs = swaggerJsdoc(swaggerOptions);
 
-module.exports = { swaggerSpecs };
+
+
+module.exports = { swaggerSpecs, API_PORT, DB_URI };
