@@ -6,11 +6,12 @@ const swaggerUi = require("swagger-ui-express");
 const cors = require("cors");
 const authRoutes = require("./routes/auth.routes");
 const blogRoutes = require("./routes/blog.routes");
-const { swaggerSpecs } = require("./config/config");
+const { swaggerSpecs, apiLimiter } = require("./config/config");
 
 const app = express();
 
 app.use(cors());
+app.use(apiLimiter)
 app.use(
     "/api-docs",
     swaggerUi.serve,
