@@ -1,7 +1,10 @@
 const express = require("express");
 const authController = require("../controllers/authController");
 const passport = require("passport");
-const { signupValidationMiddleware } = require("../validators/auth.validator");
+const {
+    signupValidationMiddleware,
+    loginValidationMiddleware,
+} = require("../validators/auth.validator");
 
 const router = express.Router();
 
@@ -92,7 +95,7 @@ router.post(
     authController.signup_post
 );
 
-router.post("/login", async (req, res, next) => {
+router.post("/login", loginValidationMiddleware, async (req, res, next) => {
     passport.authenticate("login", (error, user, info) => {
         try {
             authController.login_post(error, req, res, next, user, info);
