@@ -1,6 +1,7 @@
 const express = require("express");
 const authController = require("../controllers/authController");
 const passport = require("passport");
+const { signupValidationMiddleware } = require("../validators/auth.validator");
 
 const router = express.Router();
 
@@ -84,22 +85,21 @@ const router = express.Router();
  *           description: Logged in successfully
  */
 
-
-
 router.post(
-	"/signup",
-	passport.authenticate("signup", { session: false }),
-	authController.signup_post
+    "/signup",
+    signupValidationMiddleware,
+    passport.authenticate("signup", { session: false }),
+    authController.signup_post
 );
 
 router.post("/login", async (req, res, next) => {
-	passport.authenticate("login", (error, user, info) => {
-		try {
-			authController.login_post(error, req, res, next, user, info);
-		} catch (error) {
-			next(error);
-		}
-	})(req, res, next);
+    passport.authenticate("login", (error, user, info) => {
+        try {
+            authController.login_post(error, req, res, next, user, info);
+        } catch (error) {
+            next(error);
+        }
+    })(req, res, next);
 });
 
 module.exports = router;
