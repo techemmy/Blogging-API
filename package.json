@@ -43,12 +43,14 @@
 		"mongodb-memory-server": "^8.9.5",
 		"mongoose": "^6.7.0",
 		"morgan": "^1.10.0",
+		"morgan-json": "^1.1.0",
 		"passport": "^0.6.0",
 		"passport-jwt": "^4.0.0",
 		"passport-local": "^1.0.0",
 		"supertest": "^6.3.1",
 		"swagger-jsdoc": "^6.2.5",
-		"swagger-ui-express": "^4.5.0"
+		"swagger-ui-express": "^4.5.0",
+		"winston": "^3.8.2"
 	},
 	"devDependencies": {
 		"prettier": "^2.7.1"
