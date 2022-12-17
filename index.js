@@ -7,10 +7,12 @@ const cors = require("cors");
 const authRoutes = require("./routes/auth.routes");
 const blogRoutes = require("./routes/blog.routes");
 const { swaggerSpecs, apiLimiter } = require("./config/config");
+const { httpLogger } = require("./logger/logger");
 
 const app = express();
 
 app.use(cors());
+app.use(httpLogger)
 app.use(apiLimiter)
 app.use(
     "/api-docs",
