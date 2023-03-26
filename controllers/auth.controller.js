@@ -14,7 +14,7 @@ const login_post = (error, req, res, next, user, info) => {
 	try {
 		if (error || !user) {
 			const error = info ? info : "An error occurred in logging in user";
-			return res.status(400).json({ status: false, error });
+			return res.status(401).json({ status: false, error });
 		}
 		const signedUser = { id: user._id, email: user.email };
 		const token = jwt.sign({ user: signedUser }, process.env.AUTH_SECRET, {
