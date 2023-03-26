@@ -24,19 +24,19 @@ describe("Login Authentication '/auth/login' POST request", () => {
 	it("should log user in successfully", async () => {
 		const request = await supertest(app)
 			.post("/auth/login")
-			.send(fixtures.userTestData.valid);
+			.send(fixtures.userTestData.validLogin);
 		// console.log(request.body)
 		expect(request.status).toBe(200);
 		expect(request.headers["content-type"]).toContain("application/json");
 		expect(request.body).toHaveProperty("token");
 	});
 
-	it("should log user in successfully due to invalid email", async () => {
+	it("should not log user in successfully due to invalid email", async () => {
 		const request = await supertest(app)
 			.post("/auth/login")
 			.send(fixtures.userTestData.invalidEmailLogin);
 		// console.log(request.body)
-		expect(request.status).toBe(400);
+		expect(request.status).toBe(401);
 		expect(request.headers["content-type"]).toContain("application/json");
 	});
 
@@ -45,7 +45,7 @@ describe("Login Authentication '/auth/login' POST request", () => {
 			.post("/auth/login")
 			.send(fixtures.userTestData.invalidPasswordLogin);
 		// console.log(request.body)
-		expect(request.status).toBe(400);
+		expect(request.status).toBe(401);
 		expect(request.headers["content-type"]).toContain("application/json");
 	});
 });

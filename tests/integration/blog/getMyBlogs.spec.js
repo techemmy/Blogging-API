@@ -21,7 +21,7 @@ describe("Test to get all published blogs for the logged in user on the Blog GET
 		const user2 = await User.create(fixtures.userTestData.valid2);
 		const request = await supertest(app)
 			.post("/auth/login")
-			.send(fixtures.userTestData.valid);
+			.send(fixtures.userTestData.validLogin);
 
 		userToken = request.body.token;
 		await Blog.create({

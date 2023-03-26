@@ -51,8 +51,8 @@ describe("Signup Authentication '/auth/signup' POST request", () => {
 		const request = await supertest(app)
 			.post("/auth/signup")
 			.send(fixtures.userTestData.noFirstname);
-		expect(request.status).toBe(400);
-		expect(request.headers["content-type"]).toContain("application/json");
+		expect(request.status).toBe(406);
+		expect(request.headers["content-type"]).toContain("text/html");
 		expect(request.body.user).toBeUndefined();
 	});
 
@@ -61,8 +61,8 @@ describe("Signup Authentication '/auth/signup' POST request", () => {
 			.post("/auth/signup")
 			.send(fixtures.userTestData.noLastname);
 		// console.log(request.text)
-		expect(request.status).toBe(400);
-		expect(request.headers["content-type"]).toContain("application/json");
+		expect(request.status).toBe(406);
+		expect(request.headers["content-type"]).toContain("text/html");
 		expect(request.body.user).toBeUndefined();
 	});
 
@@ -70,7 +70,7 @@ describe("Signup Authentication '/auth/signup' POST request", () => {
 		const request = await supertest(app)
 			.post("/auth/signup")
 			.send(fixtures.userTestData.noEmail);
-		expect(request.status).toBe(400);
+		expect(request.status).toBe(406);
 	});
 
 	it("should not register user successfully due to invalid email", async () => {
@@ -78,8 +78,8 @@ describe("Signup Authentication '/auth/signup' POST request", () => {
 			.post("/auth/signup")
 			.send(fixtures.userTestData.invalidEmail);
 		// console.log(request.text)
-		expect(request.status).toBe(400);
-		expect(request.headers["content-type"]).toContain("application/json");
+		expect(request.status).toBe(406);
+		expect(request.headers["content-type"]).toContain("text/html");
 		expect(request.body.user).toBeUndefined();
 	});
 
@@ -87,6 +87,6 @@ describe("Signup Authentication '/auth/signup' POST request", () => {
 		const request = await supertest(app)
 			.post("/auth/signup")
 			.send(fixtures.userTestData.noPassword);
-		expect(request.status).toBe(400);
+		expect(request.status).toBe(406);
 	});
 });
