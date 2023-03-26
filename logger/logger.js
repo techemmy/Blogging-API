@@ -29,13 +29,13 @@ const logger = winston.createLogger({
     exitOnError: false,
 });
 
-// if (process.env.NODE_ENV !== "production") {
-//     logger.add(
-//         new winston.transports.Console({
-//             format: winston.format.simple(),
-//         })
-//     );
-// }
+if (process.env.NODE_ENV !== "production") {
+    logger.add(
+        new winston.transports.Console({
+            format: winston.format.simple(),
+        })
+    );
+}
 
 const morganLoggerConfig = json({
     method: ":method",
