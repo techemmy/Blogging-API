@@ -131,6 +131,19 @@ const router = express.Router();
  *         "200":
  *           description: Blog published successfully
  *
+ *   /{existingBlogId}:
+ *     get:
+ *       summary: Get published blog by ID
+ *       tags: [Blogs]
+ *       parameters:
+ *         - in: path
+ *           name: existingBlogId
+ *           description: ID of blog to get
+ *           type: string
+ *           required: true
+ *       responses:
+ *         "200":
+ *           description: Blog fetched successfully
  *   /{blogId}:
  *     put:
  *       security:
