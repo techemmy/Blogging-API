@@ -12,6 +12,10 @@ Check the Project Live Url
 
 Visit the `/api-docs/` route to use swagger to explore the API
 
+### You can use the OAuth2 Authentication in browsers on the following routes:
+- Login: `/auth/login` using a  `GET` request
+- Logout: `/auth/logout` using a  `GET` request
+
 ## Setup to Run
 
 - Install NodeJS
