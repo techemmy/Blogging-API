@@ -25,13 +25,14 @@ const UserSchema = new Schema({
 		required: [true, "Your last name is required!"],
 	},
 	password: {
-		type: String,
-		required: [true, "Password is required!"],
+		type: String
 	},
+	oauth: Boolean
 });
 
 UserSchema.pre("save", async function (next) {
 	try {
+		if (!this.password) next();
 		this.password = await bcrypt.hash(this.password, 10);
 		next();
 	} catch (error) {
