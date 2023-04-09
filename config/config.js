@@ -1,5 +1,6 @@
 const swaggerJsdoc = require("swagger-jsdoc");
 const rateLimit = require("express-rate-limit");
+const MongoStore = require('connect-mongo');
 
 const API_PORT = process.env.PORT || 3000;
 const DB_URI = process.env.DB_URI;
@@ -44,4 +45,23 @@ const apiLimiter = rateLimit({
     legacyHeaders: false, // Disable the `X-RateLimit-*` headers
 });
 
-module.exports = { swaggerSpecs, API_PORT, DB_URI, apiLimiter };
+const authOConfig = {
+    issuer: 'https://' + process.env.AUTH0_DOMAIN + '/',
+    authorizationURL: 'https://' + process.env.AUTH0_DOMAIN + '/authorize',
+    tokenURL: 'https://' + process.env.AUTH0_DOMAIN + '/oauth/token',
+    userInfoURL: 'https://' + process.env.AUTH0_DOMAIN + '/userinfo',
+    clientID: process.env.AUTH0_CLIENT_ID,
+    clientSecret: process.env.AUTH0_CLIENT_SECRET,
+    callbackURL: '/auth/oauth2/redirect',
+    scope: [ 'openid', 'profile', 'email' ]
+}
+
+const sessionConfig = {
+    secret: process.env.SESSION_SECRET,
+    resave: false,
+    saveUninitialized: false,
+    cookie: { maxAge: 60000 },
+    store: MongoStore.create({mongoUrl: process.env.DB_URI})
+}
+
+module.exports = { swaggerSpecs, API_PORT, DB_URI, apiLimiter, authOConfig, sessionConfig };
