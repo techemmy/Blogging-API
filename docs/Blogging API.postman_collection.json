@@ -24,11 +24,10 @@
 							}
 						},
 						"url": {
-							"raw": "localhost:8000/auth/signup",
+							"raw": "{{Base URL}}/auth/signup",
 							"host": [
-								"localhost"
+								"{{Base URL}}"
 							],
-							"port": "8000",
 							"path": [
 								"auth",
 								"signup"
@@ -52,14 +51,134 @@
 							}
 						},
 						"url": {
-							"raw": "localhost:8000/auth/login",
+							"raw": "{{Base URL}}/auth/login",
 							"host": [
-								"localhost"
+								"{{Base URL}}"
 							],
-							"port": "8000",
 							"path": [
 								"auth",
 								"login"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "OAuth Login",
+					"protocolProfileBehavior": {
+						"disabledSystemHeaders": {}
+					},
+					"request": {
+						"auth": {
+							"type": "oauth2",
+							"oauth2": [
+								{
+									"key": "useBrowser",
+									"value": false,
+									"type": "boolean"
+								},
+								{
+									"key": "tokenName",
+									"value": "",
+									"type": "string"
+								},
+								{
+									"key": "grant_type",
+									"value": "implicit",
+									"type": "string"
+								},
+								{
+									"key": "scope",
+									"value": "openid email profile",
+									"type": "string"
+								},
+								{
+									"key": "accessTokenUrl",
+									"value": "{{Blogging API OAuth Domain}}/oauth/token",
+									"type": "string"
+								},
+								{
+									"key": "authUrl",
+									"value": "{{Blogging API OAuth Domain}}/authorize",
+									"type": "string"
+								},
+								{
+									"key": "client_authentication",
+									"value": "header",
+									"type": "string"
+								},
+								{
+									"key": "addTokenTo",
+									"value": "header",
+									"type": "string"
+								},
+								{
+									"key": "redirect_uri",
+									"value": "http://localhost:8000/auth/oauth2/redirect",
+									"type": "string"
+								},
+								{
+									"key": "clientSecret",
+									"value": "{{Blogging API OAuth Client Secret}}",
+									"type": "string"
+								},
+								{
+									"key": "clientId",
+									"value": "{{Blogging API OAuth Client ID}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{Base URL}}/auth/login",
+							"host": [
+								"{{Base URL}}"
+							],
+							"path": [
+								"auth",
+								"login"
+							],
+							"query": [
+								{
+									"key": "access_type",
+									"value": "offline",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "OAuth Logout",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"email\": \"foobar@gmail.com\",\n    \"password\": \"foobar\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{Base URL}}/auth/logout",
+							"host": [
+								"{{Base URL}}"
+							],
+							"path": [
+								"auth",
+								"logout"
 							]
 						}
 					},
@@ -109,11 +228,10 @@
 							}
 						},
 						"url": {
-							"raw": "localhost:8000/blogs",
+							"raw": "{{Base URL}}/blogs",
 							"host": [
-								"localhost"
+								"{{Base URL}}"
 							],
-							"port": "8000",
 							"path": [
 								"blogs"
 							]
@@ -136,15 +254,14 @@
 							}
 						},
 						"url": {
-							"raw": "localhost:8000/blogs/publish/636821795b3f3bf741ddacb0",
+							"raw": "{{Base URL}}/blogs/publish/64207d30553912c338bad178",
 							"host": [
-								"localhost"
+								"{{Base URL}}"
 							],
-							"port": "8000",
 							"path": [
 								"blogs",
 								"publish",
-								"636821795b3f3bf741ddacb0"
+								"64207d30553912c338bad178"
 							]
 						}
 					},
@@ -171,14 +288,13 @@
 							}
 						},
 						"url": {
-							"raw": "localhost:8000/blogs/636821795b3f3bf741ddacb0",
+							"raw": "{{Base URL}}/blogs/639b51677059b21603a5415c",
 							"host": [
-								"localhost"
+								"{{Base URL}}"
 							],
-							"port": "8000",
 							"path": [
 								"blogs",
-								"636821795b3f3bf741ddacb0"
+								"639b51677059b21603a5415c"
 							]
 						}
 					},
@@ -200,11 +316,10 @@
 							"raw": ""
 						},
 						"url": {
-							"raw": "localhost:8000/blogs?page=1&orderBy=-createdAt&title&author&tags=api,productivity",
+							"raw": "{{Base URL}}/blogs?page=1&orderBy=-createdAt&title&author&tags=api,productivity",
 							"host": [
-								"localhost"
+								"{{Base URL}}"
 							],
-							"port": "8000",
 							"path": [
 								"blogs"
 							],
@@ -252,11 +367,10 @@
 							"raw": ""
 						},
 						"url": {
-							"raw": "localhost:8000/blogs/mine",
+							"raw": "{{Base URL}}/blogs/mine",
 							"host": [
-								"localhost"
+								"{{Base URL}}"
 							],
-							"port": "8000",
 							"path": [
 								"blogs",
 								"mine"
@@ -294,14 +408,13 @@
 							}
 						},
 						"url": {
-							"raw": "localhost:8000/blogs/636821795b3f3bf741ddacb0",
+							"raw": "{{Base URL}}/blogs/64207d30553912c338bad178",
 							"host": [
-								"localhost"
+								"{{Base URL}}"
 							],
-							"port": "8000",
 							"path": [
 								"blogs",
-								"636821795b3f3bf741ddacb0"
+								"64207d30553912c338bad178"
 							]
 						}
 					},
@@ -322,14 +435,33 @@
 							}
 						},
 						"url": {
-							"raw": "localhost:8000/blogs/636821795b3f3bf741ddacb0",
+							"raw": "{{Base URL}}/blogs/64207d30553912c338bad178",
 							"host": [
-								"localhost"
+								"{{Base URL}}"
 							],
-							"port": "8000",
 							"path": [
 								"blogs",
-								"636821795b3f3bf741ddacb0"
+								"64207d30553912c338bad178"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Home",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{Base URL}}/",
+							"host": [
+								"{{Base URL}}"
+							],
+							"path": [
+								""
 							]
 						}
 					},
@@ -342,7 +474,7 @@
 				"bearer": [
 					{
 						"key": "token",
-						"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoiNjM2ODIwNGVhZWZmY2UzNmFmMmI2OWIyIiwiZW1haWwiOiJmb29iYXJAZ21haWwuY29tIn0sImlhdCI6MTY2Nzc2ODQwNiwiZXhwIjoxNjY3NzcyMDA2fQ.GMpCjKytz306czfo-RNTSfgY0ooe2IP5kVZNETCjfrw",
+						"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoiNjQzMzE4NGJiNDA0NDU1MWNhZWFmMDRmIiwiZW1haWwiOiJlbW1hbnVlbHRvcGVhQGdtYWlsLmNvbSJ9LCJpYXQiOjE2ODEwNzAyODQsImV4cCI6MTY4MTA3Mzg4NH0.X6otJo28dADorYxHA0pc396SgZxSlF-2mceX1T5D1Cw",
 						"type": "string"
 					}
 				]
@@ -370,7 +502,14 @@
 		}
 	],
 	"auth": {
-		"type": "bearer"
+		"type": "bearer",
+		"bearer": [
+			{
+				"key": "token",
+				"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoiNjQyMDdjYzM1NTM5MTJjMzM4YmFkMTczIiwiZW1haWwiOiJmb29iYXJAZ21haWwuY29tIn0sImlhdCI6MTY3OTg1MDcwMSwiZXhwIjoxNjc5ODU0MzAxfQ.WTmbhBZWCbUbTj5iV5L8CABrfKk4UTJa3-JaxoJma5Q",
+				"type": "string"
+			}
+		]
 	},
 	"event": [
 		{
@@ -396,6 +535,22 @@
 		{
 			"key": "contentTypeJson",
 			"value": "application/json"
+		},
+		{
+			"key": "Blogging API OAuth Client ID",
+			"value": ""
+		},
+		{
+			"key": "Blogging API OAuth Client Secret",
+			"value": ""
+		},
+		{
+			"key": "Blogging API OAuth Domain",
+			"value": ""
+		},
+		{
+			"key": "Base URL",
+			"value": "localhost:8000"
 		}
 	]
 }
