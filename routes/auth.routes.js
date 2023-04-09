@@ -5,6 +5,7 @@ const {
     signupValidationMiddleware,
     loginValidationMiddleware,
 } = require("../validators/auth.validator");
+const qs = require("querystring");
 
 const router = express.Router();
 
@@ -104,5 +105,24 @@ router.post("/login", loginValidationMiddleware, async (req, res, next) => {
         }
     })(req, res, next);
 });
+
+router.get('/login', passport.authenticate('openidconnect'));
+router.get('/oauth2/redirect',
+  passport.authenticate('openidconnect', { failureRedirect: '/failure', failureMessage: true }),
+  function(req, res) {
+    res.redirect('/');
+  });
+
+router.get('/logout',
+function(req, res, next) {
+    req.logout(function(err) {
+      if (err) { return next(err); }
+      var params = {
+        client_id: process.env['AUTH0_CLIENT_ID'],
+        returnTo: process.env.HOMEPAGE
+      };
+      res.redirect('https://' + process.env.AUTH0_DOMAIN + '/v2/logout?' + qs.stringify(params));
+    });
+  });
 
 module.exports = router;
