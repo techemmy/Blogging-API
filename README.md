@@ -1,6 +1,6 @@
 # Blogging-API
 
-This is an API for blogging
+Fully functional blogging API for AltSchool Africa blogs
 
 ---
 Check the Project Live Url
